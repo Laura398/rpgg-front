@@ -11,9 +11,11 @@ import AlertMessage from '../../components/alerts/AlertMessage';
 import useAuthStore from '../../store/Auth';
 import { useMutation } from '@tanstack/react-query';
 import { register } from '../../api/Auth';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const { login } = useAuthStore();
+    const navigate = useNavigate();
     const [isRegistering, setIsRegistering] = useState(false);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -85,9 +87,11 @@ export default function Login() {
 
     const logIn = async () => {
         closeAlert();
-        const response = await login({ email, password });
+        const response = await login({ email, password });        
         if (response) {
             warning(response);
+        } else {
+            navigate('/');
         }
     };
 

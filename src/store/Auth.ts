@@ -24,9 +24,7 @@ const useAuthStore = create<AuthStore>((set, get) => ({
       const response = await signIn(data);
 
       if (!response) return 'Une erreur est survenue. Veuillez vérifier les information saisies.';
-      
-      if (typeof response === 'string') return response;
-  
+        
       const decodedToken = jwtDecode(response.accessToken) as JwtPayload & { sub: string };
       
       const profile = await get().getProfile(decodedToken.sub);
@@ -34,11 +32,10 @@ const useAuthStore = create<AuthStore>((set, get) => ({
       set({ user: profile });
       setUser(profile);
   
-      const navigate = useNavigate();
-      navigate('/');
-  
       return null;
     } catch (e: any) {
+      console.log('e', e);
+      
       return e.code === 404 ? "L'adresse mail ou le mot de passe est erroné." : 'Une erreur est survenue';
     }
     
