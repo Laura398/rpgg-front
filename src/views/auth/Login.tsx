@@ -108,7 +108,7 @@ export default function Login() {
     };
 
     return (
-        <main style={{width: "100vw", height: "100vh", backgroundColor: "#32383E", margin: 0, padding: "20vh 0 0 0"}}>
+        <main style={{padding: "20vh 0 0 0"}}>
             <CssBaseline />
             <Sheet
                 sx={{
@@ -127,7 +127,7 @@ export default function Login() {
             >
                 <div>
                     <Typography level="h4" component="h1">
-                        <b>Bienvenue sur RPG-G !</b>
+                        <b>Bienvenue sur Mundi Bellum !</b>
                     </Typography>
                 </div>
                 {isRegistering && 

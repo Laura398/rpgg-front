@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider as ReactWrapBalancer } from 'react-wrap-balancer';
-import RouteProvider from '../routes/Index';
+import RouteProvider from '../routes/routes';
 
 const queryClient = new QueryClient();
 

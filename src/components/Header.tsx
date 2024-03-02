@@ -1,6 +1,5 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -14,6 +13,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useAuthStore from '../store/Auth';
+import Box from '@mui/material/Box';
 
 interface Props {
   /**
@@ -34,10 +34,6 @@ export default function Header(props: Props) {
     [{
       name: 'Home',
       path: '/'
-    },
-    {
-      name: 'Profile',
-      path: '/profile'
     },
     {
       name: 'Logout',
@@ -63,7 +59,7 @@ export default function Header(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        RPG-G
+        Mundi Bellum
       </Typography>
       {user && <Typography>Bienvenue {user.username} !</Typography>}
       <Divider />
@@ -105,7 +101,7 @@ export default function Header(props: Props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            RPG-G
+            Mundi Bellum
           </Typography>
           {user && <Typography sx={{marginRight: "20px"}}>Bienvenue {user.username} !</Typography>}
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>

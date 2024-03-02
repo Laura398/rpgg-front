@@ -36,3 +36,13 @@ body {
   padding: 0 !important;
   margin: 0 !important;
 }
+
+main {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #32383E;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 10vh 0 0 0;
+}

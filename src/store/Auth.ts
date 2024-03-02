@@ -4,7 +4,6 @@ import { User, UserWithoutPassword } from '../types/User.type';
 import { logout, refreshToken, signIn } from '../api/Auth';
 import { getById } from '../api/User';
 import { getUser, removeUser, setUser } from '../utils/Auth';
-import { useNavigate } from 'react-router-dom';
 
 type AuthStore = {
   user: UserWithoutPassword | null;
