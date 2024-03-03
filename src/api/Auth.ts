@@ -2,7 +2,8 @@ import axios from 'axios';
 import { User } from '../types/User.type';
 
 export async function register(body: { email: string; username: string; password: string; }) {
-  return axios.post<User>('/auth/register', body).then((res) => res.data);
+  const res = await axios.post<User>('/auth/register', body);
+  return res.data;
 }
 
 export async function signIn(body: { email: string; password: string; }) {
@@ -16,5 +17,6 @@ export async function refreshToken() {
 }
 
 export async function logout() {
-  return axios.post('/auth/logout').then((res) => res.data);
+  const res = await axios.post('/auth/logout');
+  return res.data;
 }

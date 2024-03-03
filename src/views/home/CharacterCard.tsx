@@ -18,7 +18,7 @@ export default function CharacterCard(props: { character: Character }) {
     const [user, setUser] = useState({} as User);
     
     useMemo(async () => {
-        const characterUser = await getById(character.user);
+        const characterUser = await getById(character.user!);
         setUser(characterUser);
     }, []);
 

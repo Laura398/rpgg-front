@@ -4,7 +4,7 @@ import TuneIcon from '@mui/icons-material/TuneRounded';
 import { Box, Button, Stack } from "@mui/joy";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createRandomCharacter, getAll } from "../../api/Characters";
+import { createRandomCharacter, getAllCharacters } from "../../api/Characters";
 import useAuthStore from "../../store/Auth";
 import { Character } from "../../types/Character.type";
 import CharacterCard from "./CharacterCard";
@@ -18,7 +18,7 @@ export default function Home() {
   const [open, setOpen] = useState(false);
 
     useMemo(async () => {
-      const allCharacters = await getAll();
+      const allCharacters = await getAllCharacters();
       setCharacters(allCharacters);
       setAllCharacters(allCharacters);
     }, []);

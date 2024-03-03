@@ -45,7 +45,7 @@ export default function Login() {
         }
         if (isRegistering) {
             validate();
-            return signIn();
+            return signUp();
         }
         logIn();
     }
@@ -95,7 +95,7 @@ export default function Login() {
         }
     };
 
-    const signIn = () => {
+    const signUp = () => {
         registerUser.mutate({ username, email, password});
         if (registerUser.isSuccess) {
             setTimeout(() => {

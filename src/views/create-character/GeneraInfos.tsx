@@ -12,15 +12,18 @@ import Typography from '@mui/joy/Typography';
 
 import { Avatar } from '@mui/joy';
 import { useState } from 'react';
-import Selector from '../../../components/Selector';
-import { ANIMALS } from '../../../types/Character.animals.constant';
-import { Character } from '../../../types/Character.type';
-import { FAMILY_SITUATIONS, GENDERS, ORIGINS, RACES, RACES_NEED_TYPE, SEXUALITIES, SOCIAL_STATUSES, TYPES_FOR_HALFLINGS, TYPES_FOR_LUTINS_FEMALES, TYPES_FOR_LUTINS_MALES } from '../../../types/Characters.constants';
-import AlertMessage from '../../../components/alerts/AlertMessage';
+import Selector from '../../components/Selector';
+import { ANIMALS } from '../../types/Character.animals.constant';
+import { Character, CharacterClassesType, FamilySituationsType, GendersType, OriginsType, RacesType, SexualitiesType, SocialStatusesType } from '../../types/Character.type';
+import { CHARACTER_CLASSES, FAMILY_SITUATIONS, GENDERS, ORIGINS, RACES, RACES_NEED_TYPE, SEXUALITIES, SOCIAL_STATUSES, TYPES_FOR_HALFLINGS, TYPES_FOR_LUTINS_FEMALES, TYPES_FOR_LUTINS_MALES } from '../../types/Characters.constants';
+import AlertMessage from '../../components/alerts/AlertMessage';
+import { createCharacter } from '../../api/Characters';
+import { useNavigate } from 'react-router-dom';
 
 const children = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-export default function GeneralInfos(props: { generalInfos: Character , setGeneralInfos: any }) {
+export default function GeneralInfos(props: { generalInfos: Character , setGeneralInfos: (generalInfos: Character) => void }) {
+    const navigate = useNavigate();
     const { generalInfos, setGeneralInfos } = props;
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
@@ -47,7 +50,7 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
         setGeneralInfos({...generalInfos, nickname: e.target.value});
     }
 
-    const changeGender = (gender: string) => {
+    const changeGender = (gender: GendersType) => {
         setNeedsType(false);
         const generalInfosWithoutType = { ...generalInfos };
         delete generalInfosWithoutType.type;
@@ -64,19 +67,19 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
         }
     }
 
-    const changeSexuality = (sexuality: string) => {
-        setGeneralInfos({...generalInfos, sexuality: sexuality});
+    const changeSexuality = (sexuality: SexualitiesType) => {
+      setGeneralInfos({...generalInfos, sexuality: sexuality});
     }
 
     const changeChildren = (children: number) => {
-        setGeneralInfos({...generalInfos, children: +children});
+      setGeneralInfos({...generalInfos, children: +children});
     }
 
-    const changeFamSit = (famSit: string) => {
+    const changeFamSit = (famSit: FamilySituationsType) => {
         setGeneralInfos({...generalInfos, familySituation: famSit});
     }
 
-    const changeRace = (race: string) => { 
+    const changeRace = (race: RacesType) => { 
         setRace(race);
         setGeneralInfos({...generalInfos, type: undefined, race: race});
         if (race && (RACES_NEED_TYPE as unknown as string[]).includes(race)) {
@@ -99,12 +102,16 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
         setGeneralInfos({...generalInfos, type: type});        
     }
 
-    const changeOrigin = (origin: string) => {
+    const changeOrigin = (origin: OriginsType) => {
         setGeneralInfos({...generalInfos, origin: origin});
     }
 
-    const changeSocialStatus = (socialStatus: string) => {
+    const changeSocialStatus = (socialStatus: SocialStatusesType) => {
         setGeneralInfos({...generalInfos, socialStatus: socialStatus});
+    }
+
+    const changeClass = (characterClass: CharacterClassesType) => {
+        setGeneralInfos({...generalInfos, class: characterClass});
     }
 
     const changeHeight = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,23 +122,34 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
         setGeneralInfos({...generalInfos, weight: +e.target.value});
     }
 
-    const deleteAll = () => {
-        setGeneralInfos({});
+    const changeEyesColor = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setGeneralInfos({...generalInfos, eyesColor: e.target.value});
     }
 
-    const save = () => {
+    const changeHairColor = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setGeneralInfos({...generalInfos, hairColor: e.target.value});
+    }
+
+    const deleteAll = () => {
+        setGeneralInfos({} as Character);
+    }
+
+    const save = async () => {
         if (!generalInfos.firstname) {
             setAlertMessage('Le prénom est obligatoire');
             setAlertSeverity('warning');
             return setShowAlert(true);
         }
-        console.log(generalInfos);
-        setAlertMessage('Informations Générales enregistrées');
-        setAlertSeverity('success');
-        setShowAlert(true);
+        const createdCharacter = await createCharacter(generalInfos);
+        console.log(createdCharacter);
+        if (!createdCharacter) {
+            setAlertMessage('Erreur lors de la création du personnage');
+            setAlertSeverity('error');
+            return setShowAlert(true);
+        }
+        if (createdCharacter._id) navigate('/character/edit/' + createdCharacter._id);
     }
     
-
   return (
     <Box sx={{ flex: 1, width: '100%', overflow: 'auto' }}>
       <Stack
@@ -158,8 +176,8 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
               </AspectRatio>
           <Stack
             direction="row"
-            spacing={3}
-            sx={{ display: { xs: 'none', md: 'flex' }, my: 1 }}
+            spacing={{ xs: 0, md: 2 }}
+            sx={{ display: { xs: 'block', md: 'flex' }, my: 1 }}
           >
             <Stack direction="column" spacing={1}>
               {/* <IconButton
@@ -182,7 +200,6 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
             </Stack>
             <Stack spacing={2} sx={{ flexGrow: 1 }}>
               <Stack spacing={1}>
-                {/* <FormLabel sx={{paddingLeft: "10px"}}>Nom</FormLabel> */}
                 <Stack
                     gap="2"
                     direction={{ xs: 'column', md: 'row' }}
@@ -193,23 +210,42 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
                   <Input size="sm" placeholder="Surnom" sx={{ flexGrow: 3, margin: "10px" }} onChange={changeNickname} value={generalInfos.nickname || ''} />
                 </Stack>
               </Stack>
-              <Stack direction="row" spacing={2}>
+              <Stack
+                    gap="2"
+                    direction={{ xs: 'column', md: 'row' }}
+                    sx={{ display: 'flex', justifyContent: 'space-between' }}
+              >
                     <Selector title='Gender' list={Array.from(GENDERS)} value={generalInfos.gender || gender || 'Genre'} action={changeGender} />
                     <Selector title='Sexualité' list={Array.from(SEXUALITIES)} value={generalInfos.sexuality || 'Sexualité'} action={changeSexuality} />
                     <Selector title="Nombre d'Enfants" list={Array.from(children)} value={generalInfos.children || "Nombre d'Enfants"} action={changeChildren} />
                     <Selector title='Situation Familiale' list={Array.from(FAMILY_SITUATIONS)} value={generalInfos.familySituation || 'Situation Familiale'} action={changeFamSit} />
                 </Stack>
-              <Stack direction="row" spacing={2}>
+              <Stack
+                    gap="2"
+                    direction={{ xs: 'column', md: 'row' }}
+                    sx={{ display: 'flex', justifyContent: 'space-between' }}
+              >
                     <Selector title='Race' list={Array.from(RACES)} value={generalInfos.race || race || 'Race'} action={changeRace} />
                     {needsType && <Selector title='Type' list={Array.from(typesList)} value={generalInfos.type || 'Type'} action={changeType}/>}
                 </Stack>
-                <Stack direction="row" spacing={2}>
+                <Stack
+                     gap="2"
+                     direction={{ xs: 'column', md: 'row' }}
+                     sx={{ display: 'flex', justifyContent: 'space-between' }}
+                >
                     <Selector title='Origine' list={Array.from(ORIGINS)} value={generalInfos.origin || 'Origine'} action={changeOrigin} />
                     <Selector title='Statut Social' list={Array.from(SOCIAL_STATUSES)} value={generalInfos.socialStatus || 'Statut Social'} action={changeSocialStatus} />
+                    <Selector title='Classe' list={Array.from(CHARACTER_CLASSES)} value={generalInfos.class || 'Classe'} action={changeClass} />
                 </Stack>
-                <Stack direction="row" spacing={2}>
-                    <Input type="number" size="sm" placeholder="Taille" sx={{ flexGrow: 1, margin: "10px" }} onChange={changeHeight} value={generalInfos.height || 'Taille'} />
-                    <Input type="number" size="sm" placeholder="Poids" sx={{ flexGrow: 1, margin: "10px" }} onChange={changeWeight} value={generalInfos.weight || 'Poids'} />
+                <Stack
+                     gap="2"
+                     direction={{ xs: 'column', md: 'row' }}
+                     sx={{ display: 'flex', justifyContent: 'space-between' }}
+                >
+                    <Input type="number" size="sm" placeholder="Taille" sx={{ flexGrow: 1, margin: "10px" }} onChange={changeHeight} value={generalInfos.height || ''} />
+                    <Input type="number" size="sm" placeholder="Poids" sx={{ flexGrow: 1, margin: "10px" }} onChange={changeWeight} value={generalInfos.weight || ''} />
+                    <Input size="sm" placeholder="Couleur des yeux" sx={{ flexGrow: 1, margin: "10px" }} onChange={changeEyesColor} value={generalInfos.eyesColor || ''} />
+                    <Input size="sm" placeholder="Couleur des cheveux" sx={{ flexGrow: 1, margin: "10px" }} onChange={changeHairColor} value={generalInfos.hairColor || ''} />
                 </Stack>
             </Stack>
           </Stack>
@@ -218,7 +254,10 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
               <Button size="sm" variant="outlined" color="neutral" onClick={deleteAll}>
                 Cancel
               </Button>
-              <Button size="sm" variant="solid" onClick={save}>
+              <Button type="button" size="sm" variant="solid" onClick={(event) => {
+                    event.preventDefault();
+                    save();
+                }}>
                 Save
               </Button>
             </CardActions>

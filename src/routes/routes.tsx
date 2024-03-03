@@ -36,6 +36,9 @@ const RouteProvider = ({ children }: { children: React.ReactNode }) => {
                 {
                   path: '/character', element: <CreateCharacter />,
                 },
+                {
+                  path: '/character/edit/:id', element: <CreateCharacter />,
+                },
               ],
             }
           ],

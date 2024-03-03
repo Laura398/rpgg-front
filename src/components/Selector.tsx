@@ -6,7 +6,7 @@ export default function Selector(props: {title: string, list: string[] | number[
   const { sx } = props;
   return (
       <FormControl
-      sx={[{ display: { sm: 'contents' }, paddingLeft: '20px' }, ...(Array.isArray(sx) ? sx : [sx])]}
+      sx={[{ display: { sm: 'contents' }, pl: {xs: 0, sm: '20px'}, py: {xs: '5px'} }, ...(Array.isArray(sx) ? sx : [sx])]}
     >
       <Autocomplete
         size="sm"

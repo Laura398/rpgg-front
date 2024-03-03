@@ -7,6 +7,35 @@ import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { refreshToken } from './api/Auth';
 import { getById } from './api/User';
 import { setUser } from './utils/Auth';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getStorage, ref } from "firebase/storage";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: "mundi-bellum.appspot.com",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
+};
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
+// Get a reference to the storage service, which is used to create references in your storage bucket
+const storage = getStorage();
+
+// Create a storage reference from our storage service
+// Points to the root reference
+const storageRef = ref(storage);
+
+// Points to 'images'
+const imagesRef = ref(storageRef, 'images');
+export const characterProfilePicRef = ref(imagesRef, 'characters-profile-pics');
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
