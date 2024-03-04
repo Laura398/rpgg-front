@@ -12,14 +12,22 @@ import { getById } from '../../api/User';
 import { Character } from '../../types/Character.type';
 import { User } from '../../types/User.type';
 import Box from '@mui/joy/Box';
+import { getAvatar } from '../../helpers/get-avatar';
+import { useNavigate } from 'react-router-dom';
 
 export default function CharacterCard(props: { character: Character }) {
+    const navigate = useNavigate();
     const { character } = props;
     const [user, setUser] = useState({} as User);
+    const [avatar, setAvatar] = useState("/static/images/avatar/1.jpg");
     
     useMemo(async () => {
         const characterUser = await getById(character.user!);
         setUser(characterUser);
+        if (character.avatar) {
+            const avatarUrl = await getAvatar(character.avatar);
+            if (avatarUrl) setAvatar(avatarUrl);
+        }
     }, []);
 
     return (
@@ -33,7 +41,7 @@ export default function CharacterCard(props: { character: Character }) {
         }}
         >
         <CardContent sx={{ alignItems: 'center', textAlign: 'center' }}>
-            <Avatar src="/static/images/avatar/1.jpg" sx={{ '--Avatar-size': '4rem' }} />
+            <Avatar src={avatar} sx={{ '--Avatar-size': '4rem' }} />
             <Typography level="title-lg">{character.firstname}{character.lastname && ` ${character.lastname}`}</Typography>
             <Typography level="body-sm" sx={{ maxWidth: '24ch' }}>
                 {character.race && character.race}{character.type && ` - ${character.type}`}
@@ -59,7 +67,7 @@ export default function CharacterCard(props: { character: Character }) {
         <CardOverflow sx={{ bgcolor: 'background.level1' }}>
             <CardActions buttonFlex="1">
             <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
-                <Button>Voir plus</Button>
+                <Button onClick={() => navigate(`/character/edit/${character._id}`)}>Voir plus</Button>
             </ButtonGroup>
             </CardActions>
         </CardOverflow>

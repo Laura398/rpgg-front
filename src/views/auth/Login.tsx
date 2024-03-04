@@ -12,6 +12,7 @@ import useAuthStore from '../../store/Auth';
 import { useMutation } from '@tanstack/react-query';
 import { register } from '../../api/Auth';
 import { useNavigate } from 'react-router-dom';
+import { ShoAlertFunction } from '../../helpers/show-alert';
 
 export default function Login() {
     const { login } = useAuthStore();
@@ -53,13 +54,13 @@ export default function Login() {
     function validate() {  
         setAlertMessage('Inscription réussie !');
         setAlertSeverity('success');
-        setShowAlert(true);
+        ShoAlertFunction(setShowAlert);
     }
 
     function warning(message: string) {
         setAlertMessage(message);
         setAlertSeverity('warning');
-        setShowAlert(true);
+        ShoAlertFunction(setShowAlert);
     }
 
     function closeAlert() {

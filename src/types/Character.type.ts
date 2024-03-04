@@ -190,6 +190,7 @@ const Character = z.object({
         type: z.enum(ATTACK_RANGE).optional(),
     })).optional(),
     mount: z.string().optional(),
+    avatar: z.string().optional(),
     user: z.string().optional(),
 });
 

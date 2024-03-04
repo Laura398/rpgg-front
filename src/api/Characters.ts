@@ -17,8 +17,11 @@ export async function createRandomCharacter() {
 }
 
 export async function createCharacter(character: Character) {
-  const createdCharacter = await axios.post<Character>('/characters', character);
-  console.log('createdCharacter', createdCharacter.data);
-  
+  const createdCharacter = await axios.post<Character>('/characters', character);  
   return createdCharacter.data;
+}
+
+export async function updateCharacter(_id: string, character: Character) {
+  const updatedCharacter = await axios.patch<Character>(`/characters/${_id}`, character);
+  return updatedCharacter.data;
 }

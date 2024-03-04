@@ -1,8 +1,9 @@
 import Autocomplete from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
 import FormControl, { FormControlProps } from '@mui/joy/FormControl';
+import CasinoIcon from '@mui/icons-material/Casino';
 
-export default function Selector(props: {title: string, list: string[] | number[], value: string | number, action: any} & FormControlProps) {
+export default function Selector(props: {name: string, title: string, list: string[] | number[], value: string | number, action: any, random: any} & FormControlProps) {
   const { sx } = props;
   return (
       <FormControl
@@ -16,7 +17,7 @@ export default function Selector(props: {title: string, list: string[] | number[
         defaultValue={props.list[0].toString()}
         value={props.value.toString()}
         onChange={(_event, newValue) => {
-          props.action(newValue);
+          props.action(newValue, props.name);
         }}
         options={props.list.map(item => item.toString())}
         renderOption={(optionProps, option) => (
@@ -29,6 +30,7 @@ export default function Selector(props: {title: string, list: string[] | number[
             autoComplete: 'new-password', // disable autocomplete and autofill
           },
         }}
+        endDecorator={<CasinoIcon onClick={props.random} />}
       />
     </FormControl>
   );
