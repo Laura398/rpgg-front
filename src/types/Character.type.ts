@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ALLIGNMENTS, ALLTYPES, ARTS, ATTACK_RANGE, CHARACTER_CLASSES, FAMILY_SITUATIONS, GENDERS, INTELLECTS, KNOWLEDGES, LANGUAGES_LEVELS, MAIN_STATS, OBJECTS_WEIGHT, ORIGINS, PHYSICALS, RACES, SEXUALITIES, SOCIALS, SOCIAL_STATUSES, SURVIVALS, TYPES } from './Characters.constants';
+import { ALLIGNMENTS, ALLTYPES, ALL_SKILLS, ARTS, ATTACK_RANGE, CHARACTER_CLASSES, FAMILY_SITUATIONS, GENDERS, INTELLECTS, KNOWLEDGES, LANGUAGES_LEVELS, MAIN_STATS, OBJECTS_WEIGHT, ORIGINS, PHYSICALS, RACES, SECONDARY_STATS, SEXUALITIES, SOCIALS, SOCIAL_STATUSES, SURVIVALS, TYPES } from './Characters.constants';
 
 export type RacesType = typeof RACES[number];
 export type TypesType = typeof TYPES[number];
@@ -18,6 +18,7 @@ export type SocialStatusesType = typeof SOCIAL_STATUSES[number];
 export type FamilySituationsType = typeof FAMILY_SITUATIONS[number];
 export type AllignmentsType = typeof ALLIGNMENTS[number];
 export type MainStatsType = typeof MAIN_STATS[number];
+export type SecondaryStatsType = typeof SECONDARY_STATS[number];
 export type LanguagesLevelsType = typeof LANGUAGES_LEVELS[number];
 export type ObjectsWeightType = typeof OBJECTS_WEIGHT[number];
 export type AttackRangeType = typeof ATTACK_RANGE[number];
@@ -46,7 +47,7 @@ const Character = z.object({
         mp: z.number().optional(),
         level: z.number().optional(),
         atk: z.number().optional(),
-        dev: z.number().optional(),
+        def: z.number().optional(),
     }).optional(),
     secondaryStats: z.object({
         phy: z.number().optional(),
@@ -55,18 +56,18 @@ const Character = z.object({
         men: z.number().optional(),
         cha: z.number().optional(),
     }).optional(),
-    talent: z.array(z.object({
+    talent: z.object({
         name: z.string().optional(),
         skills: z.array(z.string()).optional(),
-    })).optional(),
-    weakness: z.array(z.object({
+    }).optional(),
+    weakness: z.object({
         name: z.string().optional(),
         skills: z.array(z.string()).optional(),
-    })).optional(),
+    }).optional(),
     special: z.array(z.object({
         name: z.string().optional(),
-        talent: z.array(z.string()).optional(),
-        stat: z.enum(MAIN_STATS).optional(),
+        draw: z.enum(SECONDARY_STATS).optional(),
+        stat: z.enum(ALL_SKILLS).optional(),
     })).optional(),
     skills: z.object({
         art: z.object(

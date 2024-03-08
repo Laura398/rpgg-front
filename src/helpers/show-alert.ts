@@ -1,4 +1,4 @@
-export const ShoAlertFunction = (setShowAlert: (showAlert: boolean) => void) => {
+export const showAlertFunction = (setShowAlert: (showAlert: boolean) => void) => {
     setShowAlert(true);
     setTimeout(() => {
         setShowAlert(false);

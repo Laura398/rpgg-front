@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import axios from 'axios';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { refreshToken } from './api/Auth';
+import { refreshToken, signIn } from './api/Auth';
 import { getById } from './api/User';
 import { setUser } from './utils/Auth';
 // Import the functions you need from the SDKs you need

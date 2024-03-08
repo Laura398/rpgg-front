@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardActions, CardOverflow, Divider, Stack, Typography } from "@mui/joy";
 
-export default function CreateCharacterCard (props: { save: any, title: string, buttonText: string, content: any}) {
+export default function CreateCharacterCard (props: { save: any, title: string, buttonText: string, content: any, randomAll?: () => void}) {
   return (
     <Box sx={{ flex: 1, width: '100%', overflow: 'auto' }}>
       <Stack
@@ -21,12 +21,26 @@ export default function CreateCharacterCard (props: { save: any, title: string, 
           {props.content}
           <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
             <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-              <Button type="button" size="sm" variant="solid" onClick={(event) => {
-                    event.preventDefault();
-                    props.save();
-                }}>
+              <Button type="button" size="sm" variant="solid" color="neutral" onClick={(event) => {
+                event.preventDefault();
+                props.save();
+              }}>
                 {props.buttonText}
               </Button>
+              {props.randomAll && (
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="solid"
+                  color="neutral"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    props.randomAll && props.randomAll();
+                  }}
+                >
+                  Tout randomiser
+                </Button>
+              )}
             </CardActions>
           </CardOverflow>
         </Card>

@@ -1,7 +1,7 @@
 import { jwtDecode, type JwtPayload } from 'jwt-decode';
 import { create } from 'zustand';
 import { User, UserWithoutPassword } from '../types/User.type';
-import { logout, refreshToken, signIn } from '../api/Auth';
+import { checkToken, logout, refreshToken, signIn } from '../api/Auth';
 import { getById } from '../api/User';
 import { getUser, removeUser, setUser } from '../utils/Auth';
 
@@ -10,6 +10,7 @@ type AuthStore = {
   getProfile: (id: string) => Promise<UserWithoutPassword>;
   login: (data: Pick<User, 'email' | 'password'>) => Promise<string | null>;
   refresh: () => Promise<{ accessToken: string; refreshToken: string }>;
+  checkToken: () => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -42,6 +43,14 @@ const useAuthStore = create<AuthStore>((set, get) => ({
   refresh: async () => {
     const tokens = await refreshToken();
     return tokens;
+  },
+  checkToken: async () => {
+    const checkValidToken = await checkToken();    
+    if (getUser() && !checkValidToken) {
+      removeUser();
+      set({ user: null });
+      await logout();
+    }
   },
   logout: async () => {
     removeUser();

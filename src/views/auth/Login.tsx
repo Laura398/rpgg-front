@@ -12,7 +12,7 @@ import useAuthStore from '../../store/Auth';
 import { useMutation } from '@tanstack/react-query';
 import { register } from '../../api/Auth';
 import { useNavigate } from 'react-router-dom';
-import { ShoAlertFunction } from '../../helpers/show-alert';
+import { showAlertFunction } from '../../helpers/show-alert';
 
 export default function Login() {
     const { login } = useAuthStore();
@@ -54,13 +54,13 @@ export default function Login() {
     function validate() {  
         setAlertMessage('Inscription réussie !');
         setAlertSeverity('success');
-        ShoAlertFunction(setShowAlert);
+        showAlertFunction(setShowAlert);
     }
 
     function warning(message: string) {
         setAlertMessage(message);
         setAlertSeverity('warning');
-        ShoAlertFunction(setShowAlert);
+        showAlertFunction(setShowAlert);
     }
 
     function closeAlert() {
@@ -110,6 +110,7 @@ export default function Login() {
 
     return (
         <main style={{padding: "20vh 0 0 0"}}>
+            <form>
             <CssBaseline />
             <Sheet
                 sx={{
@@ -135,35 +136,35 @@ export default function Login() {
                     <FormControl>
                         <FormLabel>Nom d'utilisateur</FormLabel>
                         <Input
-                            // html input attribute
                             name="username"
                             type="username"
                             placeholder="JonhDoe123"
                             value={username}
                             onChange={changeUsername}
+                            autoComplete='off'
                         />
                     </FormControl>
                 }
                 <FormControl>
                     <FormLabel>Email</FormLabel>
                     <Input
-                        // html input attribute
                         name="email"
                         type="email"
                         placeholder="johndoe@email.com"
                         value={email}
                         onChange={changeEmail}
+                        autoComplete='off'
                     />
                 </FormControl>
                 <FormControl>
                     <FormLabel>Mot de passe</FormLabel>
                     <Input
-                        // html input attribute
                         name="password"
                         type="password"
                         placeholder="mot de passe"
                         value={password}
                         onChange={changePassword}
+                        autoComplete='off'
                     />
                 </FormControl>
                 <Button type='button' sx={{ mt: 1 /* margin top */ }} onClick={(event) => {
@@ -181,6 +182,7 @@ export default function Login() {
                 </Typography>
             </Sheet>
             {showAlert && <AlertMessage severity={alertSeverity} message={alertMessage} onClose={closeAlert} />}
+            </form>
         </main>
     );
 }

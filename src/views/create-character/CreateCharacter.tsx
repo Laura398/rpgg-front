@@ -10,19 +10,27 @@ import * as React from 'react';
 import { getCharacterById } from '../../api/Characters';
 import AlertMessage from '../../components/alerts/AlertMessage';
 import { Character } from '../../types/Character.type';
-import GeneralInfos from './GeneraInfos';
-import Stats from './Stats';
-import { ShoAlertFunction } from '../../helpers/show-alert';
+import GeneralInfos from './general-infos/GeneraInfos';
+import Stats from './stats/Stats';
+import { showAlertFunction } from '../../helpers/show-alert';
+import Talents from './talents/Talents';
+import Skills from './skills/Skills';
+import Languages from './languages/Languages';
 
 export default function CreateCharacter() {
     const hrefId = window.location.href.split('/')[5];
     const [edit, setEdit] = React.useState(false);
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [generalInfos, setGeneralInfos] = React.useState({} as Character);
-    const [stats, setStats] = React.useState({} as any);
     const [showAlert, setShowAlert] = React.useState(false);
     const [alertMessage, setAlertMessage] = React.useState('' as string);
     const [alertSeverity, setAlertSeverity] = React.useState('' as string);
+    const [activeStep, setActiveStep] = React.useState(Number(localStorage.getItem('step')) | 0);
+    const [generalInfos, setGeneralInfos] = React.useState({} as Character);
+    const [mainStats, setMainStats] = React.useState({} as Character['mainStats']);
+    const [secondaryStats, setSecondaryStats] = React.useState({} as Character['secondaryStats']);
+    const [talent, setTalent] = React.useState({ name: '', skills: [] } as unknown as Character['talent']);
+    const [weakness, setWeakness] = React.useState({} as Character['weakness']);
+    const [special, setSpecial] = React.useState([] as Character['special']);
+    const [skills, setSkills] = React.useState({} as Character['skills']);
 
     const steps = [
         { 
@@ -37,29 +45,79 @@ export default function CreateCharacter() {
                 setAlertSeverity={setAlertSeverity}
             />
         },
-        { id: 2, label: 'Statistiques', component: <Stats stats={stats} setStats={setStats} edit={edit} />},
-        { id: 3, label: 'Talents', component: <Typography variant="h1">Talents</Typography>},
-        { id: 4, label: 'Personalité', component: <Typography variant="h1">Personalité</Typography>},
-        { id: 5, label: 'Inventaire', component: <Typography variant="h1">Inventaire</Typography>},
+        {
+            id: 2,
+            label: 'Statistiques',
+            component: <Stats
+                className={generalInfos.class}
+                mainStats={mainStats}
+                setMainStats={setMainStats}
+                secondaryStats={secondaryStats}
+                setSecondaryStats={setSecondaryStats}
+            />
+        },
+        { 
+            id: 3,
+            label: 'Talents',
+            component: <Talents
+                talent={talent}
+                setTalent={setTalent}
+                weakness={weakness}
+                setWeakness={setWeakness}
+                special={special}
+                setSpecial={setSpecial}
+            />
+        },
+        {
+            id: 4,
+            label: 'Compétences',
+            component: <Skills
+                skills={skills}
+                setSkills={setSkills}
+            />
+        },
+        {
+            id: 5,
+            label: 'Langages',
+            component: <Languages />
+        },
+        {
+            id: 6,
+            label: 'Personalité',
+            component: <Typography variant="h1">Personalité</Typography>
+        },
+        {
+            id: 7,
+            label: 'Inventaire',
+            component: <Typography variant="h1">Inventaire</Typography>
+        },
     ]
 
     React.useMemo(async () => {
         if (hrefId) {
             const character = await getCharacterById(hrefId);
             setGeneralInfos(character);
+            setMainStats(character.mainStats);
+            setSecondaryStats(character.secondaryStats);
+            setTalent(character.talent);
+            setWeakness(character.weakness);
+            setSpecial(character.special);
+            setSkills(character.skills);
             setEdit(true);
         }
     }, [hrefId])
 
     React.useEffect(() => {
-        const unloadCallback = (event: any) => {
-          event.preventDefault();
-          event.returnValue = "";
-          return "";
+        const unloadCallback = () => {
+            localStorage.removeItem('step');
         };
-      
+    
         window.addEventListener("beforeunload", unloadCallback);
-        return () => window.removeEventListener("beforeunload", unloadCallback);
+    
+        return () => {
+            window.removeEventListener("beforeunload", unloadCallback);
+        };
+    
       }, []);
 
     function closeAlert() {
@@ -71,18 +129,22 @@ export default function CreateCharacter() {
     }
 
     const handleNext = () => {
-        if (activeStep === 0) {
+        if (activeStep === 0 && !hrefId) {
             setAlertMessage('Veuillez enregistrer les informations générales avant de passer à l\'étape suivante');
             setAlertSeverity('warning');
-            ShoAlertFunction(setShowAlert);
+            showAlertFunction(setShowAlert);
         } else if (activeStep + 1 === steps.length) {
             console.log('Finish');
+            // don't forget to remove step from localstorage
+            // localStorage.removeItem('step');
         } else {
+            localStorage.setItem('step', JSON.stringify(activeStep + 1));
             setActiveStep(activeStep + 1);
         }
     };
 
     const handleBack = () => {
+        localStorage.setItem('step', JSON.stringify(activeStep - 1));
         setActiveStep(activeStep - 1);
     };
 
@@ -102,18 +164,19 @@ export default function CreateCharacter() {
                         ))}
                     </Stepper>
                     <Typography align="center" sx={{ display: {xs: 'block', md: "none"}, pt: 3, pb: 5, fontSize: '1.5em' }}>
-                        Etape {steps[activeStep].id}/5
+                        Etape {steps[activeStep].id}/7
                     </Typography>
                         <React.Fragment>
                             {getStepContent(activeStep)}
                             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                 {activeStep !== 0 && (
-                                <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                                <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }} color="inherit">
                                     Précédent
                                 </Button>
                                 )}
                                 <Button
                                 variant="contained"
+                                color="inherit"
                                 onClick={handleNext}
                                 sx={{ mt: 3, ml: 1 }}
                                 >

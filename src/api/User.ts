@@ -7,8 +7,6 @@ export async function getById(id: string) {
 }
 
 export async function findOneUser(selector: Record<string, any>, options: Record<string, any>) {
-  const user = await axios.post<User>('/users/find-one', selector, options);
-  console.log('user', user);
-  
+  const user = await axios.post<User>('/users/find-one', selector, options);  
   return user.data;
 }

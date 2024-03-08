@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { User } from '../types/User.type';
+import { Navigate } from 'react-router-dom';
 
 export async function register(body: { email: string; username: string; password: string; }) {
   const res = await axios.post<User>('/auth/register', body);
@@ -17,6 +18,15 @@ export async function refreshToken() {
 }
 
 export async function logout() {
-  const res = await axios.post('/auth/logout');
-  return res.data;
+  await axios.post('/auth/logout');
+}
+
+export async function checkToken () {
+  try {
+    const res = await axios.get('/auth/check-token');
+    return res.data;
+  } catch (e: any) {
+    console.log('e', e);
+    return false;
+  }
 }

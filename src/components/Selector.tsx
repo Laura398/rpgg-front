@@ -1,25 +1,25 @@
 import Autocomplete from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
 import FormControl, { FormControlProps } from '@mui/joy/FormControl';
-import CasinoIcon from '@mui/icons-material/Casino';
 
-export default function Selector(props: {name: string, title: string, list: string[] | number[], value: string | number, action: any, random: any} & FormControlProps) {
+export default function Selector(props: {name: string, title: string, list: string[] | number[], value: string | number, action: any, startDecorator?: any, disabled: boolean} & FormControlProps) {
   const { sx } = props;
   return (
       <FormControl
-      sx={[{ display: { sm: 'contents' }, pl: {xs: 0, sm: '20px'}, py: {xs: '5px'} }, ...(Array.isArray(sx) ? sx : [sx])]}
+      sx={[{ display: { sm: 'contents' }, pl: {xs: 0, sm: '20px'}, py: {xs: '5px'}, ml: 0, width:"100%" }, ...(Array.isArray(sx) ? sx : [sx])]}
     >
       <Autocomplete
         size="sm"
-        sx={{ margin: '0 1vw' }}
+        sx={{ margin: 0, width: '100%'}}
         autoHighlight
-        isOptionEqualToValue={(option, value) => option === value.toString() || value.toString() === props.value.toString()}
-        defaultValue={props.list[0].toString()}
-        value={props.value.toString()}
+        isOptionEqualToValue={(option, value) => option === value?.toString() || value?.toString() === props.value?.toString()}
+        defaultValue={props.list[0]?.toString()}
+        value={props.value?.toString()}
+        disabled={props.disabled}
         onChange={(_event, newValue) => {
           props.action(newValue, props.name);
         }}
-        options={props.list.map(item => item.toString())}
+        options={props.list.map(item => item?.toString())}
         renderOption={(optionProps, option) => (
           <AutocompleteOption {...optionProps}>
             {option}
@@ -30,7 +30,7 @@ export default function Selector(props: {name: string, title: string, list: stri
             autoComplete: 'new-password', // disable autocomplete and autofill
           },
         }}
-        endDecorator={<CasinoIcon onClick={props.random} />}
+        startDecorator={props.startDecorator}
       />
     </FormControl>
   );
