@@ -1,7 +1,7 @@
+import CloseIcon from '@mui/icons-material/Close';
 import { Input, Option, Select, Sheet, Stack, Typography } from "@mui/joy";
 import { Character } from "../../../types/Character.type";
-import { ALL_SKILLS, SECONDARY_STATS } from "../../../types/Characters.constants";
-import CloseIcon from '@mui/icons-material/Close';
+import { SECONDARY_STATS, STATS } from "../../../types/Characters.constants";
 
 export default function SpecialSelection(props:
     {
@@ -45,7 +45,7 @@ export default function SpecialSelection(props:
                         setCurrentSpecial({...currentSpecial, stat: newValue});
                       }}
                 >
-                    {[...ALL_SKILLS].sort().map((skill) => <Option key={skill} value={skill}>{skill}</Option>)}
+                    {[...STATS].sort().map((skill) => <Option key={skill} value={skill}>{skill}</Option>)}
                 </Select>
                 <Typography fontSize="medium" fontWeight="l" id="ios-example-demo" mb={1}>Bonus - 1D6</Typography>
             </Stack>

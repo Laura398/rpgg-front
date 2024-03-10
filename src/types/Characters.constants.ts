@@ -8,7 +8,7 @@ export const TYPES_FOR_LUTINS_MALES = ["Gnome du jour", "Gnome de la nuit"] as c
 export const TYPES_FOR_LUTINS_FEMALES = ["Fée de l'été", "Fée de l'hiver", "Fée du printemps", "Fée de l'automne"] as const;
 export const TYPES_FOR_HALFLINGS = ["Demi-Ange", "Demi-Démon"] as const;
 export const ALLTYPES = [...TYPES, ...ANIMALS] as const;
-export const STATS = ["Arts"]
+export const STATS = ["Arts", "Connaissances", "Intellects", "Physiques", "Sociaux", "Survie"] as const;
 export const ARTS = ["Agriculture et Elevage", "Art de la scène", "Arts martiaux", "Chant et Danse", "Couture et Tannerie", "Crochetage", "Cuisine et Dépeçage", "Ebenisterie", "Métallurgie", "Mixologie", "Musique", "Navigation", "Orfèvrerie", "Pratique des nœuds", "Sculpture"] as const;
 export const KNOWLEDGES = ["Alchimie", "Anatomie", "Astrologie et Astronomie", "Biologie", "Botanique et Herbologie", "Culture ésotérique", "Culture générale", "Chimie", "Géologie", "Histoire et Géographie", "Littérature et Poésie", "Mathématiques", "Mécanique", "Moeurs et Traditions", "Physique", "Religion"] as const;
 export const INTELLECTS = ["Analyse critique", "Concentration", "Conscience", "Deduction et Raisonnement", "Détermination", "Empathie", "Gestion du stress", "Imagination", "Improvisation", "Lecture et Ecriture", "Maîtrise de ses émotions", "Mémoire", "Philosophie", "Rethorique et Répartie", "Résiliance", "Tempérament"] as const;
@@ -31,3 +31,11 @@ export const SECONDARY_STATS = ["phy", "int", "dxt", "men", "cha"] as const;
 export const LANGUAGES_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"] as const;
 export const OBJECTS_WEIGHT = ["Léger", "Moyen", "Lourd"] as const;
 export const ATTACK_RANGE = ["Mélée", "Distance", "Magique"] as const;
+
+
+export const LANGUAGES_TYPES = [
+    {name: "Expression Ecrite", value: "writing"},
+    {name: "Compréhension Ecrite", value: "reading"},
+    {name: "Expression Orale", value: "speaking"},
+    {name: "Compréhension Orale", value: "listening"}
+] as const;

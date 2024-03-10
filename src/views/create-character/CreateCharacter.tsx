@@ -9,13 +9,14 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { getCharacterById } from '../../api/Characters';
 import AlertMessage from '../../components/alerts/AlertMessage';
-import { Character } from '../../types/Character.type';
+import { Character, CharacterWithoutFirstname } from '../../types/Character.type';
 import GeneralInfos from './general-infos/GeneraInfos';
 import Stats from './stats/Stats';
 import { showAlertFunction } from '../../helpers/show-alert';
 import Talents from './talents/Talents';
 import Skills from './skills/Skills';
 import Languages from './languages/Languages';
+import Personality from './personality/Personality';
 
 export default function CreateCharacter() {
     const hrefId = window.location.href.split('/')[5];
@@ -24,21 +25,22 @@ export default function CreateCharacter() {
     const [alertMessage, setAlertMessage] = React.useState('' as string);
     const [alertSeverity, setAlertSeverity] = React.useState('' as string);
     const [activeStep, setActiveStep] = React.useState(Number(localStorage.getItem('step')) | 0);
-    const [generalInfos, setGeneralInfos] = React.useState({} as Character);
+    const [characterData, setCharacterData] = React.useState({} as Character);
     const [mainStats, setMainStats] = React.useState({} as Character['mainStats']);
     const [secondaryStats, setSecondaryStats] = React.useState({} as Character['secondaryStats']);
     const [talent, setTalent] = React.useState({ name: '', skills: [] } as unknown as Character['talent']);
     const [weakness, setWeakness] = React.useState({} as Character['weakness']);
     const [special, setSpecial] = React.useState([] as Character['special']);
     const [skills, setSkills] = React.useState({} as Character['skills']);
+    const [languages, setLanguages] = React.useState({} as Character['languages']);
 
     const steps = [
         { 
             id: 1,
             label: 'Informations Générales',
             component: <GeneralInfos
-                generalInfos={generalInfos}
-                setGeneralInfos={setGeneralInfos}
+                generalInfos={characterData}
+                setGeneralInfos={setCharacterData}
                 edit={edit}
                 setShowAlert={setShowAlert}
                 setAlertMessage={setAlertMessage}
@@ -49,7 +51,7 @@ export default function CreateCharacter() {
             id: 2,
             label: 'Statistiques',
             component: <Stats
-                className={generalInfos.class}
+                className={characterData.class}
                 mainStats={mainStats}
                 setMainStats={setMainStats}
                 secondaryStats={secondaryStats}
@@ -79,12 +81,18 @@ export default function CreateCharacter() {
         {
             id: 5,
             label: 'Langages',
-            component: <Languages />
+            component: <Languages
+                languages={languages}
+                setLanguages={setLanguages}
+            />
         },
         {
             id: 6,
             label: 'Personalité',
-            component: <Typography variant="h1">Personalité</Typography>
+            component: <Personality
+                personality={characterData}
+                setPersonality={setCharacterData}
+            />
         },
         {
             id: 7,
@@ -96,13 +104,14 @@ export default function CreateCharacter() {
     React.useMemo(async () => {
         if (hrefId) {
             const character = await getCharacterById(hrefId);
-            setGeneralInfos(character);
+            setCharacterData(character);
             setMainStats(character.mainStats);
             setSecondaryStats(character.secondaryStats);
             setTalent(character.talent);
             setWeakness(character.weakness);
             setSpecial(character.special);
             setSkills(character.skills);
+            setLanguages(character.languages);
             setEdit(true);
         }
     }, [hrefId])

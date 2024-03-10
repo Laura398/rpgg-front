@@ -196,3 +196,5 @@ const Character = z.object({
 });
 
 export type Character = z.infer<typeof Character>;
+
+export type CharacterWithoutFirstname = Omit<Character, 'firstname'>;

@@ -2,7 +2,7 @@ import Autocomplete from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
 import FormControl, { FormControlProps } from '@mui/joy/FormControl';
 
-export default function Selector(props: {name: string, title: string, list: string[] | number[], value: string | number, action: any, startDecorator?: any, disabled: boolean} & FormControlProps) {
+export default function Selector(props: {name: string, title: string, list: string[] | number[], value: string | number, action: any, startDecorator?: any, disabled?: boolean} & FormControlProps) {
   const { sx } = props;
   return (
       <FormControl
