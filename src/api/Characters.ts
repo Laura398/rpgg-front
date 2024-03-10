@@ -31,7 +31,7 @@ export async function createCharacter(character: Character) {
 
 export async function updateCharacter(_id: string, character: Partial<Character>) {
   try {
-    const updatedCharacter = await axios.patch<Character>(`/characters/${_id}`, character);
+    const updatedCharacter = await axios.patch<Partial<Character>>(`/characters/${_id}`, character);  
     return updatedCharacter.data;
   } catch (e: any) {
     console.log('e', e);

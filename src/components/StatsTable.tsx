@@ -7,8 +7,8 @@ import Typography from '@mui/joy/Typography';
 import { Box } from '@mui/material';
 import CasinoIcon from '@mui/icons-material/Casino';
 
-export default function StatsTable(props: {title: string, statsList: {name: string, field: string, description?: string}[], stats: any, setStats: any}) {
-    const { title, statsList } = props;
+export default function StatsTable(props: {title: string, statsList: {name: string, field: string, description?: string}[], stats: any, setStats: any, noRandom?: boolean}) {
+    const { title, statsList, noRandom } = props;
 
     return (
         <Sheet variant="soft" sx={{ width: {sm: "100%", md: "45%"}, p: 2, m: "10px", borderRadius: 'sm' }}>
@@ -36,7 +36,7 @@ export default function StatsTable(props: {title: string, statsList: {name: stri
                                 <Input
                                     id={stat.name}
                                     name={stat.field}
-                                    startDecorator={<CasinoIcon className={stat.field} onClick={() => props.setStats({...props.stats, [stat.field]: Math.floor(Math.random() * 20)})} />}
+                                    startDecorator={!noRandom && <CasinoIcon className={stat.field} onClick={() => props.setStats({...props.stats, [stat.field]: Math.floor(Math.random() * 20)})} />}
                                     type="number"
                                     placeholder="0"
                                     sx={{ width: {sm: "100%", md: "30%"}, height: "40px", borderRadius: "sm", border: "1px solid #E0E0E0", padding: "0 10px"}}

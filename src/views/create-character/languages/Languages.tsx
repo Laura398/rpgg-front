@@ -7,7 +7,6 @@ import Language from "./Language";
 
 export default function Languages (props: {languages: any, setLanguages: React.Dispatch<React.SetStateAction<any>>}) {
     const { languages, setLanguages } = props;
-    console.log('languages', languages);
     
     const [common, setCommon] = useState(languages?.common || {});
     const [birth, setBirth] = useState(languages?.birth || {});

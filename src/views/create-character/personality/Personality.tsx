@@ -16,9 +16,7 @@ export default function Personality (props: {personality: any, setPersonality: R
     }
 
     const save = () => {
-        setPersonality({...personality, principles, renown});
-        console.log('personality', personality);
-        
+        setPersonality({...personality, principles, renown});        
         const hrefId = window.location.href.split('/')[5];
         updateCharacter(hrefId, { karma: personality.karma, reputation: personality.reputation, principles, renown });
         setShowAlert(true);

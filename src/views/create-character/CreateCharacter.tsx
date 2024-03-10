@@ -17,6 +17,7 @@ import Talents from './talents/Talents';
 import Skills from './skills/Skills';
 import Languages from './languages/Languages';
 import Personality from './personality/Personality';
+import Inventory from './inventory/Inventory';
 
 export default function CreateCharacter() {
     const hrefId = window.location.href.split('/')[5];
@@ -97,7 +98,10 @@ export default function CreateCharacter() {
         {
             id: 7,
             label: 'Inventaire',
-            component: <Typography variant="h1">Inventaire</Typography>
+            component: <Inventory
+                character={characterData}
+                setCharacter={setCharacterData}
+            />
         },
     ]
 

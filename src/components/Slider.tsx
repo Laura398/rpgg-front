@@ -3,10 +3,7 @@ import { Stack } from "@mui/material";
 import { MARKS, MINUS_MARKS, PHONE_MARKS, PHONE_MINUS_MARKS } from "../views/create-character/personality/constants";
 
 export default function SliderComponent (props: {personality: any, setPersonality: any, field: string, marks: boolean, min: number, max: number, step: number, start?: string, end?: string}) {
-    const { personality, setPersonality, field, marks, min, max, step, start, end } = props;
-
-    console.log(personality[field]);
-    
+    const { personality, setPersonality, field, marks, min, max, step, start, end } = props;    
 
     const onChange = (_e: any, value: number | number[]) => {
         setPersonality({...personality, [field]: value});

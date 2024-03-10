@@ -177,7 +177,7 @@ const Character = z.object({
         silver: z.number().optional(),
         copper: z.number().optional(),
     }).optional(),
-    inventory: z.array(z.string()).optional(),
+    inventory: z.array(z.string().optional()).optional(),
     weapons: z.array(z.object({
         name: z.string().optional(),
         atk: z.number().optional(),
