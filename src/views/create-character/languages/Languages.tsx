@@ -5,7 +5,7 @@ import CreateCharacterCard from "../../../components/CreateCharacterCard";
 import AlertMessage from "../../../components/alerts/AlertMessage";
 import Language from "./Language";
 
-export default function Languages (props: {languages: any, setLanguages: React.Dispatch<React.SetStateAction<any>>}) {
+export default function Languages (props: {languages: any, setLanguages: React.Dispatch<React.SetStateAction<any>>, setLanguagesDone: React.Dispatch<React.SetStateAction<boolean>>}) {
     const { languages, setLanguages } = props;
     
     const [common, setCommon] = useState(languages?.common || {});
@@ -22,11 +22,12 @@ export default function Languages (props: {languages: any, setLanguages: React.D
         setShowAlert(false);
     }
 
-    const save = () => {
+    const save = async () => {
         const newLanguages = {common, birth, elf, dwarf, ork, antic, daemon, rune};
         setLanguages(newLanguages);
-        const hrefId = window.location.href.split('/')[5];
-        updateCharacter(hrefId, {languages: newLanguages});
+        const hrefId = window.location.href.split('/')[4];
+        await updateCharacter(hrefId, {languages: newLanguages});
+        props.setLanguagesDone(true);
         setShowAlert(true);
     }
 

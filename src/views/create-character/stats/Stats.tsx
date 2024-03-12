@@ -10,7 +10,7 @@ import MainStats from "./MainStats";
 import SecondaryStats from "./SecondaryStats";
 import { showAlertFunction } from "../../../helpers/show-alert";
 
-export default function Stats(props: { className: string | undefined, mainStats: Character['mainStats'], setMainStats: (mainStats: Character['mainStats']) => void, secondaryStats: Character['secondaryStats'], setSecondaryStats: (secondaryStats: Character['secondaryStats']) => void}) {
+export default function Stats(props: { className: string | undefined, mainStats: Character['mainStats'], setMainStats: (mainStats: Character['mainStats']) => void, secondaryStats: Character['secondaryStats'], setSecondaryStats: (secondaryStats: Character['secondaryStats']) => void, setStatsDone: React.Dispatch<React.SetStateAction<boolean>> }) {
     const { className, mainStats, setMainStats, secondaryStats, setSecondaryStats } = props;
     const [showAlert, setShowAlert] = useState(false);
 
@@ -18,13 +18,14 @@ export default function Stats(props: { className: string | undefined, mainStats:
         setShowAlert(false);
     }
 
-    const save = () => {
+    const save = async () => {
         const modifier = {
             mainStats,
             secondaryStats
         }
-        const hrefId = window.location.href.split('/')[5];
-        updateCharacter(hrefId, modifier);
+        const hrefId = window.location.href.split('/')[4];
+        await updateCharacter(hrefId, modifier);
+        props.setStatsDone(true);
         showAlertFunction(setShowAlert);
     }
 

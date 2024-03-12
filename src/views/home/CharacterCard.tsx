@@ -67,7 +67,7 @@ export default function CharacterCard(props: { character: Character }) {
         <CardOverflow sx={{ bgcolor: 'background.level1' }}>
             <CardActions buttonFlex="1">
             <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
-                <Button onClick={() => navigate(`/character/edit/${character._id}`)}>Voir plus</Button>
+                <Button onClick={() => navigate(`/character/${character._id}`)}>Voir plus</Button>
             </ButtonGroup>
             </CardActions>
         </CardOverflow>

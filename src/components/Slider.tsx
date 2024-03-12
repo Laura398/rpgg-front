@@ -23,7 +23,7 @@ export default function SliderComponent (props: {personality: any, setPersonalit
             }
             <Slider
                 aria-label="Small steps"
-                value={Number(personality[field])}
+                value={Number(personality[field]) || 0}
                 step={step}
                 marks={marks ? (window.innerWidth < 600 ? PHONE_MINUS_MARKS : MINUS_MARKS) : (window.innerWidth < 600 ? PHONE_MARKS : MARKS)}
                 min={min}

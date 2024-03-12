@@ -23,7 +23,7 @@ export default function InventoryList (props: {inventory: string[], setInventory
     }
 
     return (
-        <Sheet variant="soft" sx={{ width: {sm: "100%", md: "45%"}, p: 2, borderRadius: 'sm' }}>
+        <Sheet variant="soft" sx={{ width: "100%", p: 2, borderRadius: 'sm' }}>
             <Typography
                 level="h3"
                 fontSize="xl2"
@@ -34,13 +34,19 @@ export default function InventoryList (props: {inventory: string[], setInventory
                 Inventaire
             </Typography>
             <Stack spacing={2} alignItems="center">
-                <Input id="item-name" name="name" type="text" placeholder="Nom de l'objet" sx={{width: "100%"}} onKeyUp={(e) => {if (e.key === "Enter") addObject()}}  endDecorator={<CheckCircleIcon onClick={addObject} />} />
+                <Input id="item-name" name="name" type="text" placeholder="Nom de l'objet" sx={{width: "80%"}} onKeyUp={(e) => {if (e.key === "Enter") addObject()}}  endDecorator={<CheckCircleIcon onClick={addObject} />} />
+                    <Stack width="90%" spacing={2} justifyContent="space-between" direction={{sm: "column", md: "row"}} flexWrap="wrap">
                     {inventory && inventory.map((item: string, index: number) => (
-                        <Stack key={index} width="90%" spacing={2} justifyContent="space-between" direction="row">
-                            <Typography level="body-sm" textAlign="left">{item}</Typography>
+                        <Stack key={index} minWidth="40%" maxWidth="100%" spacing={2} justifyContent="space-between" direction="row">
+                            <Typography level="body-sm" textAlign="left" sx={{
+                                textOverflow: "initial",
+                                whiteSpace: "wrap",
+                                overflow: "auto",
+                            }}>{item}</Typography>
                             <CloseIcon onClick={removeItem} />
                         </Stack>
                     ))}
+                    </Stack>
             </Stack>
         </Sheet>
     );

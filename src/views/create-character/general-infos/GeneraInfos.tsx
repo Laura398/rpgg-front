@@ -65,7 +65,7 @@ const defineWeight = (race: string, gender: string) => {
   }
 }
 
-export default function GeneralInfos(props: { generalInfos: Character , setGeneralInfos: (generalInfos: Character) => void, edit: boolean, setShowAlert: (showAlert: boolean) => void, setAlertMessage: (alertMessage: string) => void, setAlertSeverity: (alertSeverity: string) => void}) {
+export default function GeneralInfos(props: { generalInfos: Character , setGeneralInfos: (generalInfos: Character) => void, edit: boolean, setShowAlert: (showAlert: boolean) => void, setAlertMessage: (alertMessage: string) => void, setAlertSeverity: (alertSeverity: string) => void, setGeneralInfosDone: (generalInfosDone: boolean) => void}) {
     const navigate = useNavigate();
     const { generalInfos, setGeneralInfos } = props;
     const [open, setOpen] = useState<boolean>(false);
@@ -291,13 +291,14 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
         console.log(generalInfos);
         
         if (props.edit) {
-            const hrefId = window.location.href.split('/')[5];
+            const hrefId = window.location.href.split('/')[4];
             const updatedCharacter = await updateCharacter(hrefId, generalInfos);
             if (!updatedCharacter) {
                 props.setAlertMessage('Erreur lors de la mise à jour du personnage');
                 props.setAlertSeverity('error');
                 return showAlertFunction(props.setShowAlert);
             }
+            props.setGeneralInfosDone(true);
             props.setAlertMessage('Personnage mis à jour');
             props.setAlertSeverity('success');
             showAlertFunction(props.setShowAlert);
@@ -312,7 +313,8 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
               props.setAlertSeverity('error');
               return showAlertFunction(props.setShowAlert);
           }
-          if (createdCharacter._id) navigate('/character/edit/' + createdCharacter._id);
+          props.setGeneralInfosDone(true);
+          if (createdCharacter._id) navigate('/character/' + createdCharacter._id + '/edit');
           props.setAlertMessage('Personnage créé');
           props.setAlertSeverity('success');
           showAlertFunction(props.setShowAlert);

@@ -8,7 +8,7 @@ import { Character } from "../../../types/Character.type";
 import SpecialSelection from "./SpecialSelection";
 import TalentsSelection from "./TalentsSelection";
 
-export default function Talents (props: { talent: Character['talent'], setTalent: (talent: Character['talent']) => void, weakness: Character['weakness'], setWeakness: (weakness: Character['weakness']) => void, special: Character['special'], setSpecial: (special: Character['special']) => void}) {
+export default function Talents (props: { talent: Character['talent'], setTalent: (talent: Character['talent']) => void, weakness: Character['weakness'], setWeakness: (weakness: Character['weakness']) => void, special: Character['special'], setSpecial: (special: Character['special']) => void, setTalentsDone: React.Dispatch<React.SetStateAction<boolean>> }) {
     const { talent, setTalent, weakness, setWeakness, special, setSpecial } = props;
     const [showAlert, setShowAlert] = useState(false);
     const [special1, setSpecial1] = useState(special?.[0] || {}); 
@@ -18,8 +18,9 @@ export default function Talents (props: { talent: Character['talent'], setTalent
         const newSpecial = [special1, special2]
         setSpecial(newSpecial);
         const modifier= {talent, weakness, special: newSpecial}
-        const hrefId = window.location.href.split('/')[5];
+        const hrefId = window.location.href.split('/')[4];
         await updateCharacter(hrefId, modifier);
+        props.setTalentsDone(true);
         showAlertFunction(setShowAlert);
     }
 

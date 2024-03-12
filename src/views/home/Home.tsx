@@ -25,7 +25,7 @@ export default function Home() {
 
     const randomise = async () => {
       const character = await createRandomCharacter();
-      setCharacters([...characters, character]);
+      if (character) setCharacters([...characters, character]);
     }
 
     return (
@@ -54,7 +54,7 @@ export default function Home() {
               color="neutral"
               sx={{ margin: "1em"}}
               startDecorator={<AddCircleOutlineIcon />}
-              onClick={() => navigate('/character')}
+              onClick={() => navigate('/character/new')}
             >
               Nouveau personnage
             </Button>
