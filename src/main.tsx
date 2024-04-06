@@ -1,11 +1,11 @@
-import './index.css';
+import axios from 'axios';
+import { JwtPayload, jwtDecode } from 'jwt-decode';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import axios from 'axios';
-import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { refreshToken, signIn } from './api/Auth';
+import { refreshToken } from './api/Auth';
 import { getById } from './api/User';
+import './index.css';
 import { setUser } from './utils/Auth';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";

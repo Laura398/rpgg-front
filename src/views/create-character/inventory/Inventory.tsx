@@ -1,10 +1,9 @@
 import { Box, Divider, Stack } from "@mui/joy";
+import { useState } from "react";
+import { updateCharacter } from "../../../api/Characters";
 import CreateCharacterCard from "../../../components/CreateCharacterCard";
 import AlertMessage from "../../../components/alerts/AlertMessage";
-import { useState } from "react";
-import StatsTable from "../../../components/StatsTable";
 import InventoryList from "./InventoryList";
-import { updateCharacter } from "../../../api/Characters";
 import Money from "./Money";
 
 const moneyList = [

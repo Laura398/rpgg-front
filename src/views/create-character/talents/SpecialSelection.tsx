@@ -1,7 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Input, Option, Select, Sheet, Stack, Typography } from "@mui/joy";
 import { Character } from "../../../types/Character.type";
-import { SECONDARY_STATS, SKILLS_GROUPS, STATS } from "../../../types/Characters.constants";
+import { SECONDARY_STATS, STATS } from "../../../types/Characters.constants";
 
 export default function SpecialSelection(props:
     {

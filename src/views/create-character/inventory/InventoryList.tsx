@@ -49,7 +49,3 @@ export default function InventoryList (props: {inventory: string[], setInventory
         </Sheet>
     );
 }
-
-function concat(inventory: string[], value: string) {
-    throw new Error('Function not implemented.');
-}

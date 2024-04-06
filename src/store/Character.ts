@@ -7,7 +7,7 @@ type CharacterStore = {
     getCharacter: () => Character;
 };
 
-const useCharacterStore = create<CharacterStore>((set) => ({
+const useCharacterStore = create<CharacterStore>(() => ({
     setCharacter: async (id: string) => {
         const character = await getCharacterById(id);
         localStorage.setItem('character', JSON.stringify(character));

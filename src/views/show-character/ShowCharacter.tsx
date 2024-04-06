@@ -4,16 +4,14 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCharacterById } from '../../api/Characters';
 import { getAvatar } from '../../helpers/get-avatar';
-import { Character } from '../../types/Character.type';
+import useCharacterStore from '../../store/Character';
 import ShowCharacterCard from './general-infos/CharacterCard';
+import ShowInventory from './inventory/ShowInventory';
 import ShowLanguages from './languages/Languages';
 import ShowPersonality from './personality/ShowPersonality';
 import ShowSkills from './skills/ShowSkills';
 import ShowTalentsAndSpe from './statistiques/ShowTalentsAndSpe';
-import ShowInventory from './inventory/ShowInventory';
-import useCharacterStore from '../../store/Character';
 
 export default function ShowCharacter () {
     const navigate = useNavigate();

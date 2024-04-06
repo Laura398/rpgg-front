@@ -1,9 +1,8 @@
-import {useDropzone} from 'react-dropzone';
-import './DropZone.css';
 import { Button } from '@mui/joy';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { characterProfilePicRef } from '../../main';
+import { useDropzone } from 'react-dropzone';
 import { Character } from '../../types/Character.type';
+import './DropZone.css';
 
 const typeValidator = (file: any) => {
     if (file.type.startsWith("video/")) {
