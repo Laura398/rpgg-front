@@ -5,9 +5,7 @@ import { Input, Sheet, Stack, Typography } from "@mui/joy";
 export default function InventoryList (props: {inventory: string[], setInventory: any}) {
     const { inventory, setInventory } = props;
 
-    const addObject = () => {
-        console.log(inventory);
-        
+    const addObject = () => {        
         const input = document.getElementById('item-name') as HTMLInputElement;        
         if (input.value && input.value !== '') {
             setInventory([...inventory, input.value]);

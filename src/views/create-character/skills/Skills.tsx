@@ -14,7 +14,7 @@ const physicalsList = PHYSICALS.map(physical => ({ name: physical, field: physic
 const socialsList = SOCIALS.map(social => ({ name: social, field: social }));
 const survivalsList = SURVIVALS.map(survival => ({ name: survival, field: survival }));
 
-export default function Skills (props: {skills: Character['skills'], setSkills: React.Dispatch<React.SetStateAction<Character['skills']>>, setSkillsDone: React.Dispatch<React.SetStateAction<boolean>>}) {
+export default function Skills (props: {skills: Character['skills'], setSkills: React.Dispatch<React.SetStateAction<Character['skills']>>}) {
     const { skills, setSkills } = props;
     
     const [showAlert, setShowAlert] = useState(false);
@@ -43,7 +43,6 @@ export default function Skills (props: {skills: Character['skills'], setSkills: 
         setSkills(newSkills);
         const hrefId = window.location.href.split('/')[4];
         await updateCharacter(hrefId, {skills: newSkills});
-        props.setSkillsDone(true);
         setShowAlert(true);
     }
 

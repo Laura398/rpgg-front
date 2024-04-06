@@ -10,7 +10,7 @@ import MainStats from "./MainStats";
 import SecondaryStats from "./SecondaryStats";
 import { showAlertFunction } from "../../../helpers/show-alert";
 
-export default function Stats(props: { className: string | undefined, mainStats: Character['mainStats'], setMainStats: (mainStats: Character['mainStats']) => void, secondaryStats: Character['secondaryStats'], setSecondaryStats: (secondaryStats: Character['secondaryStats']) => void, setStatsDone: React.Dispatch<React.SetStateAction<boolean>> }) {
+export default function Stats(props: { className: string | undefined, mainStats: Character['mainStats'], setMainStats: (mainStats: Character['mainStats']) => void, secondaryStats: Character['secondaryStats'], setSecondaryStats: (secondaryStats: Character['secondaryStats']) => void }) {
     const { className, mainStats, setMainStats, secondaryStats, setSecondaryStats } = props;
     const [showAlert, setShowAlert] = useState(false);
 
@@ -25,7 +25,6 @@ export default function Stats(props: { className: string | undefined, mainStats:
         }
         const hrefId = window.location.href.split('/')[4];
         await updateCharacter(hrefId, modifier);
-        props.setStatsDone(true);
         showAlertFunction(setShowAlert);
     }
 

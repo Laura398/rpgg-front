@@ -5,7 +5,7 @@ import SliderComponent from "../../../components/Slider";
 import AlertMessage from "../../../components/alerts/AlertMessage";
 import { updateCharacter } from "../../../api/Characters";
 
-export default function Personality (props: {personality: any, setPersonality: React.Dispatch<React.SetStateAction<any>>, setPersonalityDone: React.Dispatch<React.SetStateAction<boolean>>}) {
+export default function Personality (props: {personality: any, setPersonality: React.Dispatch<React.SetStateAction<any>>}) {
     const { personality, setPersonality } = props;
     const [showAlert, setShowAlert] = useState(false);
     const [principles, setPrinciples] = useState(personality?.principles || 0);
@@ -19,7 +19,6 @@ export default function Personality (props: {personality: any, setPersonality: R
         setPersonality({...personality, principles, renown});        
         const hrefId = window.location.href.split('/')[4];
         await updateCharacter(hrefId, { karma: personality.karma, reputation: personality.reputation, principles, renown });
-        props.setPersonalityDone(true);
         setShowAlert(true);
     }
 

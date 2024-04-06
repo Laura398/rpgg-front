@@ -70,25 +70,14 @@ export default function Home() {
           </Box>}
           
         </Stack>
-        <Stack
-          margin={{ xs: "0", sm: "0 2em" }}
-          direction={{ xs: 'column', sm: 'row' }}
-          justifyContent="space-between"
-          alignItems="center"
-          flexWrap="wrap"
-          sx={{ '&::after': {
-            content: '""',
-            flex: "auto",
-            width: "320px"
-          }}}
-        >
+        <div style={{ margin: "auto", display: "grid", gap: "40px", gridTemplateColumns: "repeat(auto-fit, 250px)", justifyContent:"center"}} >
           {characters.map((character, index) => (
-            <div key={index}>
-              <CharacterCard character={character} />
-            </div>
-          
-          ))}
-        </Stack>
+                <div key={index}>
+                  <CharacterCard character={character} />
+                </div>
+              )
+          )}
+        </div>
       </main>
     );
 }

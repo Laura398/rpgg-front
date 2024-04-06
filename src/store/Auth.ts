@@ -46,7 +46,7 @@ const useAuthStore = create<AuthStore>((set, get) => ({
   },
   checkToken: async () => {
     const checkValidToken = await checkToken();    
-    if (getUser() && !checkValidToken) {
+    if (!checkValidToken) {
       removeUser();
       set({ user: null });
       await logout();

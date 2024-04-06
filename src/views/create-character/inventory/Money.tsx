@@ -1,3 +1,5 @@
+import CasinoIcon from '@mui/icons-material/Casino';
+import PaidIcon from '@mui/icons-material/Paid';
 import { Input } from '@mui/joy';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
@@ -5,9 +7,7 @@ import ListItemContent from '@mui/joy/ListItemContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { Box } from '@mui/material';
-import CasinoIcon from '@mui/icons-material/Casino';
-import PaidIcon from '@mui/icons-material/Paid';
-import { amber, brown, green, grey, red, yellow } from '@mui/material/colors';
+import { amber, grey, red } from '@mui/material/colors';
 
 export default function Money(props: {title: string, statsList: {name: string, field: string, description?: string}[], stats: any, setStats: any, noRandom?: boolean}) {
     const { title, statsList, noRandom } = props;

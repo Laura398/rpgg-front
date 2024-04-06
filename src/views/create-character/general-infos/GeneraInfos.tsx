@@ -1,3 +1,4 @@
+import CasinoIcon from '@mui/icons-material/Casino';
 import { Divider } from '@mui/joy';
 import Box from '@mui/joy/Box';
 import Stack from '@mui/joy/Stack';
@@ -13,8 +14,9 @@ import { FIRSTNAMES, LASTNAMES } from '../../../types/Character.names.constants'
 import { Character } from '../../../types/Character.type';
 import { CHARACTER_CLASSES, FAMILY_SITUATIONS, GENDERS, ORIGINS, RACES, RACES_NEED_TYPE, SEXUALITIES, SOCIAL_STATUSES, TYPES_FOR_HALFLINGS, TYPES_FOR_LUTINS_FEMALES, TYPES_FOR_LUTINS_MALES } from '../../../types/Characters.constants';
 import CharacterProfile from './CharacterProfile';
-import CasinoIcon from '@mui/icons-material/Casino';
 import Choices from './Choices';
+import { defineRandomClass } from './helpers/define-random-class';
+import { defineRandomRace } from './helpers/define-random-race';
 
 const children = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const colors = ["bleu", "vert", "marron", "noir", "rouge", "violet", "jaune", "gris", "blanc"];
@@ -43,29 +45,29 @@ const defineHeight = (race: string | undefined, gender: string | undefined) => {
 }
 
 const defineWeight = (race: string, gender: string) => {
-  switch (race) {
-      case "Nain":
-          if (gender === "Femme") {
-              return 60 + Math.floor(Math.random() * 20);
-          } else {
-              return 70 + Math.floor(Math.random() * 20);
-          }
-      case "Lutin":
-          if (gender === "Femme") {
-              return 40 + Math.floor(Math.random() * 20);
-          } else {
-              return 50 + Math.floor(Math.random() * 20);
-          }
-      default:
-          if (gender === "Femme") {
-              return 50 + Math.floor(Math.random() * 30);
-          } else {
-              return 60 + Math.floor(Math.random() * 30);
-          }
-  }
+    switch (race) {
+        case "Nain":
+            if (gender === "Femme") {
+                return 60 + Math.floor(Math.random() * 20);
+            } else {
+                return 70 + Math.floor(Math.random() * 20);
+            }
+        case "Lutin":
+            if (gender === "Femme") {
+                return 40 + Math.floor(Math.random() * 20);
+            } else {
+                return 50 + Math.floor(Math.random() * 20);
+            }
+        default:
+            if (gender === "Femme") {
+                return 50 + Math.floor(Math.random() * 30);
+            } else {
+                return 60 + Math.floor(Math.random() * 30);
+            }
+    }
 }
 
-export default function GeneralInfos(props: { generalInfos: Character , setGeneralInfos: (generalInfos: Character) => void, edit: boolean, setShowAlert: (showAlert: boolean) => void, setAlertMessage: (alertMessage: string) => void, setAlertSeverity: (alertSeverity: string) => void, setGeneralInfosDone: (generalInfosDone: boolean) => void}) {
+export default function GeneralInfos(props: { generalInfos: Character , setGeneralInfos: (generalInfos: Character) => void, edit: boolean, setShowAlert: (showAlert: boolean) => void, setAlertMessage: (alertMessage: string) => void, setAlertSeverity: (alertSeverity: string) => void}) {
     const navigate = useNavigate();
     const { generalInfos, setGeneralInfos } = props;
     const [open, setOpen] = useState<boolean>(false);
@@ -230,35 +232,42 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
         setGeneralInfos({...generalInfos, hairColor: hairColor});
     }
 
-    const randomAll = () => {
-        const firstname = FIRSTNAMES[Math.floor(Math.random() * FIRSTNAMES.length)];
-        const lastname = LASTNAMES[Math.floor(Math.random() * LASTNAMES.length)];
-        const randomGender = GENDERS[Math.floor(Math.random() * GENDERS.length)];
-        const sexuality = SEXUALITIES[Math.floor(Math.random() * SEXUALITIES.length)];
+    const randomAll = async () => {
+        const characterData: Character = {
+            firstname: FIRSTNAMES[Math.floor(Math.random() * FIRSTNAMES.length)]
+        }
+        characterData.lastname = LASTNAMES[Math.floor(Math.random() * LASTNAMES.length)];
+        characterData.gender = GENDERS[Math.floor(Math.random() * GENDERS.length)];
+        characterData.sexuality = SEXUALITIES[Math.floor(Math.random() * SEXUALITIES.length)];
+        
         const hasChildren = Math.random() > 0.5;
-        let randomChildren = 1-1;
-        if (hasChildren) randomChildren = Math.floor(Math.random() * children.length);
-        const randomRace = RACES[Math.floor(Math.random() * RACES.length)];
-        const origin = ORIGINS[Math.floor(Math.random() * ORIGINS.length)];
-        const socialStatus = SOCIAL_STATUSES[Math.floor(Math.random() * SOCIAL_STATUSES.length)];
-        const familySituation = FAMILY_SITUATIONS[Math.floor(Math.random() * FAMILY_SITUATIONS.length)];
-        const randomClass = CHARACTER_CLASSES[Math.floor(Math.random() * CHARACTER_CLASSES.length)];
-        const height = defineHeight(randomRace, randomGender);
-        const weight = defineWeight(randomRace, randomGender);
-        const eyesColor = colors[Math.floor(Math.random() * colors.length)];
-        const hairColor = colors[Math.floor(Math.random() * colors.length)];
+        if (hasChildren) {
+            characterData.children = Math.floor(Math.random() * children.length);
+        } else {
+            characterData.children = 1-1;
+        }
+        
+        characterData.race = await defineRandomRace()
+        characterData.origin = ORIGINS[Math.floor(Math.random() * ORIGINS.length)];
+        characterData.socialStatus = SOCIAL_STATUSES[Math.floor(Math.random() * SOCIAL_STATUSES.length)];
+        characterData.familySituation = FAMILY_SITUATIONS[Math.floor(Math.random() * FAMILY_SITUATIONS.length)];
+        characterData.class = await defineRandomClass(characterData.race);
+        characterData.height = defineHeight(characterData.race, characterData.gender);
+        characterData.weight = defineWeight(characterData.race, characterData.gender);
+        characterData.eyesColor = colors[Math.floor(Math.random() * colors.length)];
+        characterData.hairColor = colors[Math.floor(Math.random() * colors.length)];
         let randomType = '';
         if (RACES_NEED_TYPE.includes(randomRace as any)) {
           setNeedsType(true);
-          if (randomRace === "Lutin") {
-            if (randomGender === "Femme") {
+          if (characterData.race === "Lutin") {
+            if (characterData.gender === "Femme") {
               setTypesList([...TYPES_FOR_LUTINS_FEMALES]);
               randomType = TYPES_FOR_LUTINS_FEMALES[Math.floor(Math.random() * TYPES_FOR_LUTINS_FEMALES.length)];
             } else {
               setTypesList([...TYPES_FOR_LUTINS_MALES]);
               randomType = TYPES_FOR_LUTINS_MALES[Math.floor(Math.random() * TYPES_FOR_LUTINS_MALES.length)];
             }
-          } else if (randomRace === "Demi-Divinité") {
+          } else if (characterData.race === "Demi-Divinité") {
               setTypesList([...TYPES_FOR_HALFLINGS]);
               randomType = TYPES_FOR_HALFLINGS[Math.floor(Math.random() * TYPES_FOR_HALFLINGS.length)];
           } else {
@@ -269,27 +278,12 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
           setNeedsType(false);
         }
         setGeneralInfos({
-          firstname,
-          lastname,
-          gender: randomGender,
-          sexuality,
-          children: randomChildren,
-          race: randomRace,
-          origin,
-          socialStatus,
-          familySituation,
-          class: randomClass,
-          height,
-          weight,
-          eyesColor,
-          hairColor,
+          ...characterData,
           type: randomType,
         });
     }
 
-    const save = async () => {
-        console.log(generalInfos);
-        
+    const save = async () => {        
         if (props.edit) {
             const hrefId = window.location.href.split('/')[4];
             const updatedCharacter = await updateCharacter(hrefId, generalInfos);
@@ -298,7 +292,6 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
                 props.setAlertSeverity('error');
                 return showAlertFunction(props.setShowAlert);
             }
-            props.setGeneralInfosDone(true);
             props.setAlertMessage('Personnage mis à jour');
             props.setAlertSeverity('success');
             showAlertFunction(props.setShowAlert);
@@ -313,7 +306,6 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
               props.setAlertSeverity('error');
               return showAlertFunction(props.setShowAlert);
           }
-          props.setGeneralInfosDone(true);
           if (createdCharacter._id) navigate('/character/' + createdCharacter._id + '/edit');
           props.setAlertMessage('Personnage créé');
           props.setAlertSeverity('success');
