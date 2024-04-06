@@ -25,9 +25,9 @@ export default function Login() {
     const [alertMessage, setAlertMessage] = useState('');
     const [alertSeverity, setAlertSeverity] = useState('');
 
-    const registerUser = useMutation({
-        mutationFn: register,
-      });
+    // const registerUser = useMutation({
+    //     mutationFn: register,
+    //   });
 
     function check() {
         if (isRegistering) {
@@ -96,9 +96,10 @@ export default function Login() {
         }
     };
 
-    const signUp = () => {
-        registerUser.mutate({ username, email, password});
-        if (registerUser.isSuccess) {
+    const signUp = async () => {
+        const registered = await register({ email, username, password });
+        // registerUser.mutate({ username, email, password });
+        if (registered) {
             setTimeout(() => {
             validate();
             setIsRegistering(false);
