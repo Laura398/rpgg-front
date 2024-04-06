@@ -7,12 +7,11 @@ import Link from '@mui/joy/Link';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { useState } from 'react';
-import AlertMessage from '../../components/alerts/AlertMessage';
-import useAuthStore from '../../store/Auth';
-import { useMutation } from '@tanstack/react-query';
-import { register } from '../../api/Auth';
 import { useNavigate } from 'react-router-dom';
+import { register } from '../../api/Auth';
+import AlertMessage from '../../components/alerts/AlertMessage';
 import { showAlertFunction } from '../../helpers/show-alert';
+import useAuthStore from '../../store/Auth';
 
 export default function Login() {
     const { login } = useAuthStore();
