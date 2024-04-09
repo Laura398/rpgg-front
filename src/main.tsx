@@ -46,6 +46,8 @@ axios.interceptors.response.use(
     return response;
   },
   async (error) => {
+    console.log('error', error);
+    
     if (error.response.status === 401) {
       try {
         const tokens = await refreshToken();

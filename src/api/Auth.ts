@@ -3,6 +3,8 @@ import { User } from '../types/User.type';
 
 export async function register(body: { email: string; username: string; password: string; }) {
   const res = await axios.post<User>('/auth/register', body);
+  console.log('res', res);
+  
   return res.data;
 }
 
