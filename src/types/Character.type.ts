@@ -1,7 +1,6 @@
 import { z } from 'zod';
-import { ALLIGNMENTS, ALLTYPES, ALL_SKILLS, ARTS, ATTACK_RANGE, CHARACTER_CLASSES, FAMILY_SITUATIONS, GENDERS, INTELLECTS, KNOWLEDGES, LANGUAGES_LEVELS, MAIN_STATS, OBJECTS_WEIGHT, ORIGINS, PHYSICALS, RACES, SECONDARY_STATS, SEXUALITIES, SOCIALS, SOCIAL_STATUSES, SURVIVALS, TYPES } from './Characters.constants';
+import { ALLIGNMENTS, ALLTYPES, ALL_SKILLS, ARTS, ATTACK_RANGE, FAMILY_SITUATIONS, GENDERS, INTELLECTS, KNOWLEDGES, LANGUAGES_LEVELS, MAIN_STATS, OBJECTS_WEIGHT, ORIGINS, PHYSICALS, SEXUALITIES, SOCIALS, SOCIAL_STATUSES, SURVIVALS, TYPES } from './Characters.constants';
 
-export type RacesType = typeof RACES[number];
 export type TypesType = typeof TYPES[number];
 export type AllTypesType = typeof ALLTYPES[number];
 export type ArtsType = typeof ARTS[number];
@@ -10,7 +9,6 @@ export type IntellectsType = typeof INTELLECTS[number];
 export type PhysicalsType = typeof PHYSICALS[number];
 export type SocialsType = typeof SOCIALS[number];
 export type SurvivalsType = typeof SURVIVALS[number];
-export type CharacterClassesType = typeof CHARACTER_CLASSES[number];
 export type GendersType = typeof GENDERS[number];
 export type SexualitiesType = typeof SEXUALITIES[number];
 export type OriginsType = typeof ORIGINS[number];
@@ -18,7 +16,6 @@ export type SocialStatusesType = typeof SOCIAL_STATUSES[number];
 export type FamilySituationsType = typeof FAMILY_SITUATIONS[number];
 export type AllignmentsType = typeof ALLIGNMENTS[number];
 export type MainStatsType = typeof MAIN_STATS[number];
-export type SecondaryStatsType = typeof SECONDARY_STATS[number];
 export type LanguagesLevelsType = typeof LANGUAGES_LEVELS[number];
 export type ObjectsWeightType = typeof OBJECTS_WEIGHT[number];
 export type AttackRangeType = typeof ATTACK_RANGE[number];
@@ -28,9 +25,9 @@ const Character = z.object({
     firstname: z.string(),
     lastname: z.string().optional(),
     nickname: z.string().optional(),
-    race: z.enum(RACES).optional(),
+    race: z.string().optional(),
     type: z.enum(ALLTYPES).optional(),
-    class: z.enum(CHARACTER_CLASSES).optional(),
+    class: z.string().optional(),
     alignment: z.enum(ALLIGNMENTS).optional(),
     gender: z.enum(GENDERS).optional(),
     sexuality: z.enum(SEXUALITIES).optional(),
@@ -66,7 +63,7 @@ const Character = z.object({
     }).optional(),
     special: z.array(z.object({
         name: z.string().optional(),
-        draw: z.enum(SECONDARY_STATS).optional(),
+        draw: z.enum(["phy", "int", "dxt", "men", "cha"]).optional(),
         stat: z.enum(ALL_SKILLS).optional(),
     })).optional(),
     skills: z.object({

@@ -28,14 +28,11 @@ import useAuthStore from '../../../store/Auth';
 import Box from '@mui/joy/Box';
 
 export default function DrawerFilters(props: { open: boolean; setOpen: (open: boolean) => void; characters: Character[]; setCharacters: (characters: Character[]) => void; allCharacters: Character[];}) {
-    const localStorageWho = localStorage.getItem('filter-who');
-    const localStorageClasses = localStorage.getItem('filter-classes');
-    const localStorageRaces = localStorage.getItem('filter-races');
     const { user } = useAuthStore();
     const { open, setOpen } = props;
-    const [type, setType] = React.useState(localStorageWho ? localStorageWho : "Tous");
-    const [characterClasses, setCharacterClasses] = React.useState<string[]>(localStorageClasses ? JSON.parse(localStorageClasses) : []);
-    const [races, setRaces] = React.useState<string[]>(localStorageRaces ? JSON.parse(localStorageRaces) : []);
+    const [type, setType] = React.useState("Tous");
+    const [characterClasses, setCharacterClasses] = React.useState<string[]>([]);
+    const [races, setRaces] = React.useState<string[]>([]);
     const [username, setUsername] = React.useState("");
     const [characterName, setCharacterName] = React.useState("");
 
@@ -61,9 +58,6 @@ export default function DrawerFilters(props: { open: boolean; setOpen: (open: bo
     }
 
     const validate = () => {
-        localStorage.setItem('filter-who', type);
-        localStorage.setItem('filter-classes', JSON.stringify(characterClasses));
-        localStorage.setItem('filter-races', JSON.stringify(races));
         const selectedCharacters = props.allCharacters.filter(character => {
             if (user && type === "Seulement les miens") {
                 return character.user === user._id;

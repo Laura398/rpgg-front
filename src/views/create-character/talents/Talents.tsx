@@ -18,7 +18,7 @@ export default function Talents (props: { talent: Character['talent'], setTalent
         const newSpecial = [special1, special2]
         setSpecial(newSpecial);
         const modifier= {talent, weakness, special: newSpecial}
-        const hrefId = window.location.href.split('/')[5];
+        const hrefId = window.location.href.split('/')[4];
         await updateCharacter(hrefId, modifier);
         showAlertFunction(setShowAlert);
     }

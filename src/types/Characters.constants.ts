@@ -27,11 +27,32 @@ export const SOCIAL_STATUSES = ["Pauvre", "Classe Moyenne", "Riche", "Noble", "R
 export const FAMILY_SITUATIONS = ["Célibataire", "En couple", "Marié", "Divorcé", "Veuf"] as const;
 export const ALLIGNMENTS = ["Loyal Bon", "Neutre Bon", "Chaotique Bon", "Loyal Neutre", "Neutre", "Chaotique Neutre", "Loyal Mauvais", "Neutre Mauvais", "Chaotique Mauvais"] as const;
 export const MAIN_STATS = ["hp", "mp", "level", "atk", "def"] as const;
-export const SECONDARY_STATS = ["phy", "int", "dxt", "men", "cha"] as const;
 export const LANGUAGES_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"] as const;
 export const OBJECTS_WEIGHT = ["Léger", "Moyen", "Lourd"] as const;
 export const ATTACK_RANGE = ["Mélée", "Distance", "Magique"] as const;
 
+export const SECONDARY_STATS = [
+    {
+        name: "phy",
+        label: "Condition Physique"
+    },
+    {
+        name: "int",
+        label: "Faculté Intellectuelle"
+    },
+    {
+        name: "dxt",
+        label: "Dextérité"
+    },
+    {
+        name: "men",
+        label: "Force Mentale"
+    },
+    {
+        name: "cha",
+        label: "Charisme"
+    }
+]
 
 export const LANGUAGES_TYPES = [
     {name: "Expression Ecrite", value: "writing"},
@@ -39,3 +60,410 @@ export const LANGUAGES_TYPES = [
     {name: "Expression Orale", value: "speaking"},
     {name: "Compréhension Orale", value: "listening"}
 ] as const;
+
+export const SKILLS_NAMES = [
+    {
+        name: "art",
+        label: "Arts et Métiers"
+    },
+    {
+        name: "knowledge",
+        label: "Connaissances"
+    },
+    {
+        name: "intellect",
+        label: "Faculté Intellectuelle"
+    },
+    {
+        name: "physical",
+        label: "Habileté Physique"
+    },
+    {
+        name: "social",
+        label: "Social"
+    },
+    {
+        name: "survival",
+        label: "Survie"
+    }
+]
+
+
+export const SKILLS_GROUPS = [
+    {
+        name: "Agriculture et Elevage",
+        group: "Arts"
+    },
+    {
+        name: "Art de la scène",
+        group: "Arts"
+    },
+    {
+        name: "Arts martiaux",
+        group: "Arts"
+    },
+    {
+        name: "Chant et Danse",
+        group: "Arts"
+    },
+    {
+        name: "Couture et Tannerie",
+        group: "Arts"
+    },
+    {
+        name: "Crochetage",
+        group: "Arts"
+    },
+    {
+        name: "Cuisine et Dépeçage",
+        group: "Arts"
+    },
+    {
+        name: "Ebenisterie",
+        group: "Arts"
+    },
+    {
+        name: "Métallurgie",
+        group: "Arts"
+    },
+    {
+        name: "Mixologie",
+        group: "Arts"
+    },
+    {
+        name: "Musique",
+        group: "Arts"
+    },
+    {
+        name: "Navigation",
+        group: "Arts"
+    },
+    {
+        name: "Orfèvrerie",
+        group: "Arts"
+    },
+    {
+        name: "Pratique des nœuds",
+        group: "Arts"
+    },
+    {
+        name: "Sculpture",
+        group: "Arts"
+    },
+    {
+        name: "Alchimie",
+        group: "Connaissances"
+    },
+    {
+        name: "Anatomie",
+        group: "Connaissances"
+    },
+    {
+        name: "Astrologie et Astronomie",
+        group: "Connaissances"
+    },
+    {
+        name: "Biologie",
+        group: "Connaissances"
+    },
+    {
+        name: "Botanique et Herbologie",
+        group: "Connaissances"
+    },
+    {
+        name: "Culture ésotérique",
+        group: "Connaissances"
+    },
+    {
+        name: "Culture générale",
+        group: "Connaissances"
+    },
+    {
+        name: "Chimie",
+        group: "Connaissances"
+    },
+    {
+        name: "Géologie",
+        group: "Connaissances"
+    },
+    {
+        name: "Histoire et Géographie",
+        group: "Connaissances"
+    },
+    {
+        name: "Littérature et Poésie",
+        group: "Connaissances"
+    },
+    {
+        name: "Mathématiques",
+        group: "Connaissances"
+    },
+    {
+        name: "Mécanique",
+        group: "Connaissances"
+    },
+    {
+        name: "Moeurs et Traditions",
+        group: "Connaissances"
+    },
+    {
+        name: "Physique",
+        group: "Connaissances"
+    },
+    {
+        name: "Religion",
+        group: "Connaissances"
+    },
+    {
+        name: "Analyse critique",
+        group: "Intellects"
+    },
+    {
+        name: "Concentration",
+        group: "Intellects"
+    },
+    {
+        name: "Conscience",
+        group: "Intellects"
+    },
+    {
+        name: "Deduction et Raisonnement",
+        group: "Intellects"
+    },
+    {
+        name: "Détermination",
+        group: "Intellects"
+    },
+    {
+        name: "Empathie",
+        group: "Intellects"
+    },
+    {
+        name: "Gestion du stress",
+        group: "Intellects"
+    },
+    {
+        name: "Imagination",
+        group: "Intellects"
+    },
+    {
+        name: "Improvisation",
+        group: "Intellects"
+    },
+    {
+        name: "Lecture et Ecriture",
+        group: "Intellects"
+    },
+    {
+        name: "Maîtrise de ses émotions",
+        group: "Intellects"
+    },
+    {
+        name: "Mémoire",
+        group: "Intellects"
+    },
+    {
+        name: "Philosophie",
+        group: "Intellects"
+    },
+    {
+        name: "Rethorique et Répartie",
+        group: "Intellects"
+    },
+    {
+        name: "Résiliance",
+        group: "Intellects"
+    },
+    {
+        name: "Tempérament",
+        group: "Intellects"
+    },
+    {
+        name: "Acrobatie",
+        group: "Physiques"
+    },
+    {
+        name: "Archerie",
+        group: "Physiques"
+    },
+    {
+        name: "Coordination",
+        group: "Physiques"
+    },
+    {
+        name: "Corps à corps",
+        group: "Physiques"
+    },
+    {
+        name: "Démonstration",
+        group: "Physiques"
+    },
+    {
+        name: "Destruction",
+        group: "Physiques"
+    },
+    {
+        name: "Endurance",
+        group: "Physiques"
+    },
+    {
+        name: "Eqiilibre",
+        group: "Physiques"
+    },
+    {
+        name: "Escalade",
+        group: "Physiques"
+    },
+    {
+        name: "Esquive",
+        group: "Physiques"
+    },
+    {
+        name: "Intrusion",
+        group: "Physiques"
+    },
+    {
+        name: "Natation",
+        group: "Physiques"
+    },
+    {
+        name: "Projection",
+        group: "Physiques"
+    },
+    {
+        name: "Respiration",
+        group: "Physiques"
+    },
+    {
+        name: "Souplesse",
+        group: "Physiques"
+    },
+    {
+        name: "Commandement",
+        group: "Sociaux"
+    },
+    {
+        name: "Communication",
+        group: "Sociaux"
+    },
+    {
+        name: "Convaincre",
+        group: "Sociaux"
+    },
+    {
+        name: "Démagogie",
+        group: "Sociaux"
+    },
+    {
+        name: "Diplomatie",
+        group: "Sociaux"
+    },
+    {
+        name: "Dissuasion",
+        group: "Sociaux"
+    },
+    {
+        name: "Education",
+        group: "Sociaux"
+    },
+    {
+        name: "Eloquence",
+        group: "Sociaux"
+    },
+    {
+        name: "Encouragement",
+        group: "Sociaux"
+    },
+    {
+        name: "Estimation",
+        group: "Sociaux"
+    },
+    {
+        name: "Humour",
+        group: "Sociaux"
+    },
+    {
+        name: "Intimidation",
+        group: "Sociaux"
+    },
+    {
+        name: "Négociation",
+        group: "Sociaux"
+    },
+    {
+        name: "Pédagogie",
+        group: "Sociaux"
+    },
+    {
+        name: "Provocation",
+        group: "Sociaux"
+    },
+    {
+        name: "Séduction",
+        group: "Sociaux"
+    },
+    {
+        name: "Analyse de l'environnement",
+        group: "Survie"
+    },
+    {
+        name: "Camouflage",
+        group: "Survie"
+    },
+    {
+        name: "Campement",
+        group: "Survie"
+    },
+    {
+        name: "Cartographie",
+        group: "Survie"
+    },
+    {
+        name: "Chasse et Pêche",
+        group: "Survie"
+    },
+    {
+        name: "Conservation des vivres",
+        group: "Survie"
+    },
+    {
+        name: "Cryptozoologie",
+        group: "Survie"
+    },
+    {
+        name: "Discrétion et Furtivité",
+        group: "Survie"
+    },
+    {
+        name: "Dressage",
+        group: "Survie"
+    },
+    {
+        name: "Drogues et Poisons",
+        group: "Survie"
+    },
+    {
+        name: "Equitation",
+        group: "Survie"
+    },
+    {
+        name: "Orientation",
+        group: "Survie"
+    },
+    {
+        name: "Pistage",
+        group: "Survie"
+    },
+    {
+        name: "Pose de pièges",
+        group: "Survie"
+    },
+    {
+        name: "Vigilance",
+        group: "Survie"
+    },
+    {
+        name: "Zoologie",
+        group: "Survie"
+    }
+]

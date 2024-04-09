@@ -1,5 +1,6 @@
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Button } from '@mui/joy';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Step from '@mui/material/Step';
@@ -7,25 +8,29 @@ import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getCharacterById } from '../../api/Characters';
 import AlertMessage from '../../components/alerts/AlertMessage';
-import { Character, CharacterWithoutFirstname } from '../../types/Character.type';
-import GeneralInfos from './general-infos/GeneraInfos';
-import Stats from './stats/Stats';
 import { showAlertFunction } from '../../helpers/show-alert';
-import Talents from './talents/Talents';
-import Skills from './skills/Skills';
+import { Character } from '../../types/Character.type';
+import GeneralInfos from './general-infos/GeneraInfos';
+import Inventory from './inventory/Inventory';
 import Languages from './languages/Languages';
 import Personality from './personality/Personality';
-import Inventory from './inventory/Inventory';
+import Skills from './skills/Skills';
+import Stats from './stats/Stats';
+import Talents from './talents/Talents';
 
 export default function CreateCharacter() {
-    const hrefId = window.location.href.split('/')[5];
+    const navigate = useNavigate();
+    
+    const hrefId = window.location.href.split('/')[4];
     const [edit, setEdit] = React.useState(false);
     const [showAlert, setShowAlert] = React.useState(false);
     const [alertMessage, setAlertMessage] = React.useState('' as string);
     const [alertSeverity, setAlertSeverity] = React.useState('' as string);
-    const [activeStep, setActiveStep] = React.useState(Number(localStorage.getItem('step')) | 0);
+    const [activeStep, setActiveStep] = React.useState(Number(0));
+
     const [characterData, setCharacterData] = React.useState({} as Character);
     const [mainStats, setMainStats] = React.useState({} as Character['mainStats']);
     const [secondaryStats, setSecondaryStats] = React.useState({} as Character['secondaryStats']);
@@ -103,6 +108,11 @@ export default function CreateCharacter() {
                 setCharacter={setCharacterData}
             />
         },
+        {
+            id: 8,
+            label: 'Equipements',
+            component: <Typography>Equipements</Typography>
+        }
     ]
 
     React.useMemo(async () => {
@@ -121,8 +131,9 @@ export default function CreateCharacter() {
     }, [hrefId])
 
     React.useEffect(() => {
-        const unloadCallback = () => {
-            localStorage.removeItem('step');
+        const unloadCallback = (e: any) => {
+                e.preventDefault();
+                e.returnValue = '';
         };
     
         window.addEventListener("beforeunload", unloadCallback);
@@ -138,7 +149,7 @@ export default function CreateCharacter() {
     }
 
     const getStepContent = (step: number) => {
-        return steps[step].component;
+        return steps[step] && steps[step].component;
     }
 
     const handleNext = () => {
@@ -148,48 +159,55 @@ export default function CreateCharacter() {
             showAlertFunction(setShowAlert);
         } else if (activeStep + 1 === steps.length) {
             console.log('Finish');
-            // don't forget to remove step from localstorage
-            // localStorage.removeItem('step');
         } else {
-            localStorage.setItem('step', JSON.stringify(activeStep + 1));
             setActiveStep(activeStep + 1);
         }
     };
 
     const handleBack = () => {
-        localStorage.setItem('step', JSON.stringify(activeStep - 1));
         setActiveStep(activeStep - 1);
     };
+
+    const goToCharacter = () => {
+        navigate(`/character/${hrefId}`);
+    }
+
+    const goToStep = (e: any) => {
+        const step = steps.findIndex((step) => step.label === e.target.innerText);
+        setActiveStep(step);
+    }
 
     return (
         <main>
             <React.Fragment>
                 <CssBaseline />
-                <Paper variant="outlined" sx={{  p: { xs: 2, md: 3 }, m: { xs: 0, md: "0 40px"} }}>
+                <Paper variant="outlined" sx={{  position: "relative", p: { xs: 2, md: 3 }, m: { xs: 0, md: "0 40px"} }}>
                     <Typography component="h1" variant="h4" align="center">
                         {edit ? "Edition de personnage" : "Création de personnage"}
                     </Typography>
+                    <Button variant="soft" color="neutral" sx={{display: {xs: "none", md: "block"}, position: "absolute", top: "20px", right: "20px"}} onClick={goToCharacter} >Voir le personnage</Button>
+                    <Button variant="soft" color="neutral" sx={{display: {xs: "block", md: "none"}, position: "absolute", top: "10px", right: "10px"}} onClick={goToCharacter} ><AccountCircleIcon /></Button>
                     <Stepper activeStep={activeStep} sx={{ display: {xs: 'none', md: 'flex'}, pt: 3, pb: 5 }}>
-                        {steps.map((step, index) => (
-                        <Step key={index}>
-                            <StepLabel>{step.label}</StepLabel>
-                        </Step>
-                        ))}
+                        {steps.map((step, index) => 
+                                <Step key={index}>
+                                    <StepLabel sx={{cursor: "pointer"}} onClick={goToStep}>{step.label}</StepLabel>
+                                </Step>
+                            )}
                     </Stepper>
                     <Typography align="center" sx={{ display: {xs: 'block', md: "none"}, pt: 3, pb: 5, fontSize: '1.5em' }}>
-                        Etape {steps[activeStep].id}/7
+                        Etape {steps[activeStep]?.id}/{steps.length}
                     </Typography>
                         <React.Fragment>
                             {getStepContent(activeStep)}
                             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                 {activeStep !== 0 && (
-                                <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }} color="inherit">
+                                <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }} color="neutral">
                                     Précédent
                                 </Button>
                                 )}
                                 <Button
-                                variant="contained"
-                                color="inherit"
+                                variant="soft"
+                                color="neutral"
                                 onClick={handleNext}
                                 sx={{ mt: 3, ml: 1 }}
                                 >

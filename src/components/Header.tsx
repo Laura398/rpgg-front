@@ -96,13 +96,10 @@ export default function Header(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            Mundi Bellum
-          </Typography>
+          <div style={{ flexGrow: 1 }}>
+            <img src="/logo-name-black.png" alt="logo" style={{width: "200px", height: "100%"}} />
+          </div>
+         
           {user && <Typography sx={{marginRight: "20px"}}>Bienvenue {user.username} !</Typography>}
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item, index) => (

@@ -14,12 +14,15 @@ import { User } from '../../types/User.type';
 import Box from '@mui/joy/Box';
 import { getAvatar } from '../../helpers/get-avatar';
 import { useNavigate } from 'react-router-dom';
+import useCharacterStore from '../../store/Character';
 
 export default function CharacterCard(props: { character: Character }) {
     const navigate = useNavigate();
     const { character } = props;
     const [user, setUser] = useState({} as User);
     const [avatar, setAvatar] = useState("/static/images/avatar/1.jpg");
+
+    const { setCharacter } = useCharacterStore();
     
     useMemo(async () => {
         const characterUser = await getById(character.user!);
@@ -30,14 +33,21 @@ export default function CharacterCard(props: { character: Character }) {
         }
     }, []);
 
+    const goToCharacter = () => {
+        if (!character._id) return;
+        setCharacter(character._id)
+        navigate(`/character/${character._id}`);
+    };
+
     return (
         <Card
         component="div" // Add the missing component prop
         sx={{
             width: 320,
+            height: 300,
             maxWidth: '100%',
             boxShadow: 'lg',
-            margin: { xs: "2em 0", sm: "2em" }
+            // margin: { xs: "2em 0", sm: "2em" }
         }}
         >
         <CardContent sx={{ alignItems: 'center', textAlign: 'center' }}>
@@ -67,7 +77,7 @@ export default function CharacterCard(props: { character: Character }) {
         <CardOverflow sx={{ bgcolor: 'background.level1' }}>
             <CardActions buttonFlex="1">
             <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
-                <Button onClick={() => navigate(`/character/edit/${character._id}`)}>Voir plus</Button>
+                <Button onClick={goToCharacter}>Voir plus</Button>
             </ButtonGroup>
             </CardActions>
         </CardOverflow>

@@ -32,7 +32,7 @@ export default function SpecialSelection(props:
                         setCurrentSpecial({...currentSpecial, draw: newValue});
                       }}
                     >
-                    {Object.values(SECONDARY_STATS).map((spe, index) => <Option key={index} value={spe}>{spe}</Option>)}
+                    {Object.values(SECONDARY_STATS).map((spe, index) => <Option key={index} value={spe.name}>{spe.label}</Option>)}
                     </Select>
                     <Typography fontSize="medium" fontWeight="xl" id="ios-example-demo" mb={1}>Compétence concernée</Typography>
                     <Select
@@ -45,7 +45,10 @@ export default function SpecialSelection(props:
                         setCurrentSpecial({...currentSpecial, stat: newValue});
                       }}
                 >
-                    {[...STATS].sort().map((skill) => <Option key={skill} value={skill}>{skill}</Option>)}
+                    {[...STATS].sort().map((skill) => {
+                        return (
+                            <Option key={skill} value={skill}>{skill}</Option>)
+                    })}
                 </Select>
                 <Typography fontSize="medium" fontWeight="l" id="ios-example-demo" mb={1}>Bonus - 1D6</Typography>
             </Stack>

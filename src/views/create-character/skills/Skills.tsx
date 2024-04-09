@@ -38,11 +38,11 @@ export default function Skills (props: {skills: Character['skills'], setSkills: 
         setShowAlert(false);
     }
 
-    const save = () => {
+    const save = async () => {
         const newSkills = {art: arts, knowledge: knowledges, intellect: intellects, physical: physicals, social: socials, survival: survivals};
         setSkills(newSkills);
-        const hrefId = window.location.href.split('/')[5];
-        updateCharacter(hrefId, {skills: newSkills});
+        const hrefId = window.location.href.split('/')[4];
+        await updateCharacter(hrefId, {skills: newSkills});
         setShowAlert(true);
     }
 

@@ -15,15 +15,13 @@ export default function Personality (props: {personality: any, setPersonality: R
         setShowAlert(false);
     }
 
-    const save = () => {
+    const save = async () => {
         setPersonality({...personality, principles, renown});        
-        const hrefId = window.location.href.split('/')[5];
-        updateCharacter(hrefId, { karma: personality.karma, reputation: personality.reputation, principles, renown });
+        const hrefId = window.location.href.split('/')[4];
+        await updateCharacter(hrefId, { karma: personality.karma, reputation: personality.reputation, principles, renown });
         setShowAlert(true);
     }
 
-    
-    // title: string, value: number, onChange: any, marks: any, min: number, max: number, step: number
     const content = (
         <Box sx={{ position: 'relative' }}>
             <Stack spacing={2} direction="column" justifyContent="space-around">

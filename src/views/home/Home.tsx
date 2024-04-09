@@ -25,7 +25,7 @@ export default function Home() {
 
     const randomise = async () => {
       const character = await createRandomCharacter();
-      setCharacters([...characters, character]);
+      if (character) setCharacters([...characters, character]);
     }
 
     return (
@@ -54,7 +54,7 @@ export default function Home() {
               color="neutral"
               sx={{ margin: "1em"}}
               startDecorator={<AddCircleOutlineIcon />}
-              onClick={() => navigate('/character')}
+              onClick={() => navigate('/character/new')}
             >
               Nouveau personnage
             </Button>
@@ -70,25 +70,14 @@ export default function Home() {
           </Box>}
           
         </Stack>
-        <Stack
-          margin={{ xs: "0", sm: "0 2em" }}
-          direction={{ xs: 'column', sm: 'row' }}
-          justifyContent="space-between"
-          alignItems="center"
-          flexWrap="wrap"
-          sx={{ '&::after': {
-            content: '""',
-            flex: "auto",
-            width: "320px"
-          }}}
-        >
+        <div style={{ margin: "auto", display: "grid", gap: "40px", gridTemplateColumns: "repeat(auto-fit, 250px)", justifyContent:"center"}} >
           {characters.map((character, index) => (
-            <div key={index}>
-              <CharacterCard character={character} />
-            </div>
-          
-          ))}
-        </Stack>
+                <div key={index}>
+                  <CharacterCard character={character} />
+                </div>
+              )
+          )}
+        </div>
       </main>
     );
 }

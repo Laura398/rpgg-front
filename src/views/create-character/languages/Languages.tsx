@@ -22,11 +22,11 @@ export default function Languages (props: {languages: any, setLanguages: React.D
         setShowAlert(false);
     }
 
-    const save = () => {
+    const save = async () => {
         const newLanguages = {common, birth, elf, dwarf, ork, antic, daemon, rune};
         setLanguages(newLanguages);
-        const hrefId = window.location.href.split('/')[5];
-        updateCharacter(hrefId, {languages: newLanguages});
+        const hrefId = window.location.href.split('/')[4];
+        await updateCharacter(hrefId, {languages: newLanguages});
         setShowAlert(true);
     }
 
