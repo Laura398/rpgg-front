@@ -10,6 +10,8 @@ export async function register(body: { email: string; username: string; password
 
 export async function signIn(body: { email: string; password: string; }) {
   const res = await axios.post<{ accessToken: string; refreshToken: string }>('/auth/login', body);
+  console.log('res', res);
+  
   return res.data;
 }
 
