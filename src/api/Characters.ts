@@ -22,7 +22,6 @@ export async function createRandomCharacter() {
 
 export async function createCharacter(character: Character) {
   try {
-    console.log("CREATE CHARACTER", character);
     const createdCharacter = await axios.post<Character>('/characters', character);  
     return createdCharacter.data;
   } catch (e: any) {
@@ -32,7 +31,6 @@ export async function createCharacter(character: Character) {
 
 export async function updateCharacter(_id: string, character: Partial<Character>) {
   try {
-    console.log("UPDATE CHARACTER", character);
     const updatedCharacter = await axios.patch<Partial<Character>>(`/characters/${_id}`, character);  
     return updatedCharacter.data;
   } catch (e: any) {

@@ -159,16 +159,29 @@ export default function CreateCharacter() {
             setAlertSeverity('warning');
             showAlertFunction(setShowAlert);
         } else if (activeStep + 1 === steps.length) {
-            console.log('Finish');
             const character = {
                 ...characterData,
-                mainStats,
-                secondaryStats,
-                talent,
-                weakness,
-                special,
-                skills,
-                languages
+            }
+            if (mainStats) {
+                character.mainStats = mainStats;
+            }
+            if (secondaryStats) {
+                character.secondaryStats = secondaryStats;
+            }
+            if (talent) {
+                character.talent = talent;
+            }
+            if (weakness) {
+                character.weakness = weakness;
+            }
+            if (special) {
+                character.special = special;
+            }
+            if (skills) {
+                character.skills = skills;
+            }
+            if (languages) {
+                character.languages = languages;
             }
 
             if (edit) {

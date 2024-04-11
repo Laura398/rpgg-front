@@ -56,9 +56,7 @@ export default function DropZone(props: DropZoneProps) {
         const fileName = Math.floor(Math.random() * Date.now()).toString(36);
         const imageRef = ref(storage, 'images/characters-profile-pics/' + fileName);
         const snapshot = await uploadBytes(imageRef, acceptedFiles[0])
-        if (snapshot?.metadata?.name) {
-            console.log('Uploaded a blob or file!', snapshot.metadata.name);
-            
+        if (snapshot?.metadata?.name) {            
             props.setGeneralInfos({...props.generalInfos, avatar: snapshot.metadata.fullPath});
         }
         props.setOpen(false);
