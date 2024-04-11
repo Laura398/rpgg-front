@@ -7,6 +7,7 @@ import { showAlertFunction } from "../../../helpers/show-alert";
 import { Character } from "../../../types/Character.type";
 import SpecialSelection from "./SpecialSelection";
 import TalentsSelection from "./TalentsSelection";
+import useCharacterStore from "../../../store/Character";
 
 export default function Talents (props: { talent: Character['talent'], setTalent: (talent: Character['talent']) => void, weakness: Character['weakness'], setWeakness: (weakness: Character['weakness']) => void, special: Character['special'], setSpecial: (special: Character['special']) => void}) {
     const { talent, setTalent, weakness, setWeakness, special, setSpecial } = props;
@@ -18,8 +19,9 @@ export default function Talents (props: { talent: Character['talent'], setTalent
         const newSpecial = [special1, special2]
         setSpecial(newSpecial);
         const modifier= {talent, weakness, special: newSpecial}
-        const hrefId = window.location.href.split('/')[4];
-        await updateCharacter(hrefId, modifier);
+        const { character } = useCharacterStore();
+        const id = character._id;
+        await updateCharacter(id, modifier);
         showAlertFunction(setShowAlert);
     }
 

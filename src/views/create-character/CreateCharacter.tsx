@@ -9,9 +9,10 @@ import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCharacterById } from '../../api/Characters';
+import { createCharacter, getCharacterById, updateCharacter } from '../../api/Characters';
 import AlertMessage from '../../components/alerts/AlertMessage';
 import { showAlertFunction } from '../../helpers/show-alert';
+import useCharacterStore from '../../store/Character';
 import { Character } from '../../types/Character.type';
 import GeneralInfos from './general-infos/GeneraInfos';
 import Inventory from './inventory/Inventory';
@@ -23,8 +24,8 @@ import Talents from './talents/Talents';
 
 export default function CreateCharacter() {
     const navigate = useNavigate();
-    
-    const hrefId = window.location.href.split('/')[4];
+    const { character } = useCharacterStore();
+    const id = character._id;
     const [edit, setEdit] = React.useState(false);
     const [showAlert, setShowAlert] = React.useState(false);
     const [alertMessage, setAlertMessage] = React.useState('' as string);
@@ -111,13 +112,13 @@ export default function CreateCharacter() {
         {
             id: 8,
             label: 'Equipements',
-            component: <Typography>Equipements</Typography>
+            component: <Typography>Equipements à venir</Typography>
         }
     ]
 
     React.useMemo(async () => {
-        if (hrefId) {
-            const character = await getCharacterById(hrefId);
+        if (id) {
+            const character = await getCharacterById(id);
             setCharacterData(character);
             setMainStats(character.mainStats);
             setSecondaryStats(character.secondaryStats);
@@ -128,7 +129,7 @@ export default function CreateCharacter() {
             setLanguages(character.languages);
             setEdit(true);
         }
-    }, [hrefId])
+    }, [id])
 
     React.useEffect(() => {
         const unloadCallback = (e: any) => {
@@ -153,12 +154,28 @@ export default function CreateCharacter() {
     }
 
     const handleNext = () => {
-        if (activeStep === 0 && !hrefId) {
+        if (activeStep === 0 && !id) {
             setAlertMessage('Veuillez enregistrer les informations générales avant de passer à l\'étape suivante');
             setAlertSeverity('warning');
             showAlertFunction(setShowAlert);
         } else if (activeStep + 1 === steps.length) {
             console.log('Finish');
+            const character = {
+                ...characterData,
+                mainStats,
+                secondaryStats,
+                talent,
+                weakness,
+                special,
+                skills,
+                languages
+            }
+
+            if (edit) {
+                updateCharacter(id, character);
+            } else {
+                createCharacter(character);
+            }
         } else {
             setActiveStep(activeStep + 1);
         }
@@ -169,7 +186,7 @@ export default function CreateCharacter() {
     };
 
     const goToCharacter = () => {
-        navigate(`/character/${hrefId}`);
+        navigate(`/character/${id}`);
     }
 
     const goToStep = (e: any) => {

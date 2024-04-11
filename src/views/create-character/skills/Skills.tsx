@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import StatsTable from "../../../components/StatsTable";
 import { ARTS, INTELLECTS, KNOWLEDGES, PHYSICALS, SOCIALS, SURVIVALS } from "../../../types/Characters.constants";
 import { updateCharacter } from "../../../api/Characters";
+import useCharacterStore from "../../../store/Character";
 
 const artsList = ARTS.map(art => ({ name: art, field: art }));
 const knowledgesList = KNOWLEDGES.map(knowledge => ({ name: knowledge, field: knowledge }));
@@ -41,8 +42,9 @@ export default function Skills (props: {skills: Character['skills'], setSkills: 
     const save = async () => {
         const newSkills = {art: arts, knowledge: knowledges, intellect: intellects, physical: physicals, social: socials, survival: survivals};
         setSkills(newSkills);
-        const hrefId = window.location.href.split('/')[4];
-        await updateCharacter(hrefId, {skills: newSkills});
+        const { character } = useCharacterStore();
+        const id = character._id;
+        await updateCharacter(id, {skills: newSkills});
         setShowAlert(true);
     }
 

@@ -21,7 +21,7 @@ export type ObjectsWeightType = typeof OBJECTS_WEIGHT[number];
 export type AttackRangeType = typeof ATTACK_RANGE[number];
 
 const Character = z.object({
-    _id: z.string().optional(),
+    _id: z.string(),
     firstname: z.string(),
     lastname: z.string().optional(),
     nickname: z.string().optional(),
@@ -195,3 +195,5 @@ const Character = z.object({
 export type Character = z.infer<typeof Character>;
 
 export type CharacterWithoutFirstname = Omit<Character, 'firstname'>;
+
+export type CharacterWithoutId = Omit<Character, '_id'>;

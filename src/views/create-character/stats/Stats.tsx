@@ -9,6 +9,7 @@ import { MAGIC_CLASSES, NON_MAGIC_CLASSES } from "../../../types/Characters.cons
 import MainStats from "./MainStats";
 import SecondaryStats from "./SecondaryStats";
 import { showAlertFunction } from "../../../helpers/show-alert";
+import useCharacterStore from "../../../store/Character";
 
 export default function Stats(props: { className: string | undefined, mainStats: Character['mainStats'], setMainStats: (mainStats: Character['mainStats']) => void, secondaryStats: Character['secondaryStats'], setSecondaryStats: (secondaryStats: Character['secondaryStats']) => void }) {
     const { className, mainStats, setMainStats, secondaryStats, setSecondaryStats } = props;
@@ -23,8 +24,9 @@ export default function Stats(props: { className: string | undefined, mainStats:
             mainStats,
             secondaryStats
         }
-        const hrefId = window.location.href.split('/')[4];
-        await updateCharacter(hrefId, modifier);
+        const { character } = useCharacterStore();
+        const id = character._id;
+        await updateCharacter(id, modifier);
         showAlertFunction(setShowAlert);
     }
 

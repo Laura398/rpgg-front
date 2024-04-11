@@ -1,5 +1,5 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { AspectRatio, Avatar, Box, Button, Card, CardContent, Divider, Drawer, IconButton, List, ListItem, ListItemButton, Stack, Tab, TabList, Tabs, Typography } from '@mui/joy';
+import { AspectRatio, Avatar, Box, Button, Card, CardContent, Divider, Drawer, IconButton, List, ListItem, ListItemButton, Sheet, Stack, Tab, TabList, Tabs, Typography } from '@mui/joy';
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import * as React from 'react';
@@ -15,9 +15,7 @@ import ShowTalentsAndSpe from './statistiques/ShowTalentsAndSpe';
 
 export default function ShowCharacter () {
     const navigate = useNavigate();
-    
-    const {getCharacter} = useCharacterStore();
-    const character = getCharacter();
+    const {character} = useCharacterStore();
     
     const [avatar, setAvatar] = React.useState<string>("/static/images/avatar/1.jpg");
     const [state, setState] = React.useState(false);
@@ -74,7 +72,19 @@ export default function ShowCharacter () {
         {
             id: 8,
             label: 'Equipements',
-            component: <Typography>Equipements</Typography>,
+            component: <Box sx={{ position: 'relative', marginTop: "20px" }}>
+                <Sheet variant="soft" sx={{ width: "100%", p: 2, m: "10px", borderRadius: 'sm' }}>
+                    <Typography
+                        level="h3"
+                        fontSize="xl2"
+                        fontWeight="xl"
+                        id="ios-example-demo"
+                        mb={1}
+                    >
+                        Equipements à venir
+                    </Typography>
+                </Sheet>
+            </Box>,
             step: 7
         }
     ]
@@ -176,11 +186,11 @@ export default function ShowCharacter () {
                                             </Button>
                                         </Stack>
                                         <Stack>
-                                            <Button variant="soft" color="neutral">
-                                                Monter de niveau
+                                            <Button variant="soft" color="neutral" disabled>
+                                                Monter de niveau - fonctionnalité à venir
                                             </Button>
-                                            <Button variant="soft" color="neutral" sx={{marginTop: "20px"}}>
-                                                Démarrer une partie
+                                            <Button variant="soft" color="neutral" sx={{marginTop: "20px"}} disabled>
+                                                Démarrer une partie - fonctionnalité à venir
                                             </Button>
                                         </Stack>
                                     </Box>

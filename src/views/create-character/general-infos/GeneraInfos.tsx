@@ -9,6 +9,7 @@ import CreateCharacterCard from '../../../components/CreateCharacterCard';
 import BasicModal from '../../../components/modals/Modal';
 import { getAvatar } from '../../../helpers/get-avatar';
 import { showAlertFunction } from '../../../helpers/show-alert';
+import useCharacterStore from '../../../store/Character';
 import { ANIMALS } from '../../../types/Character.animals.constant';
 import { FIRSTNAMES, LASTNAMES } from '../../../types/Character.names.constants';
 import { Character } from '../../../types/Character.type';
@@ -233,7 +234,7 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
     }
 
     const randomAll = async () => {
-        const characterData: Character = {
+        const characterData: any = {
             firstname: FIRSTNAMES[Math.floor(Math.random() * FIRSTNAMES.length)]
         }
         characterData.lastname = LASTNAMES[Math.floor(Math.random() * LASTNAMES.length)];
@@ -285,8 +286,9 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
 
     const save = async () => {        
         if (props.edit) {
-            const hrefId = window.location.href.split('/')[4];
-            const updatedCharacter = await updateCharacter(hrefId, generalInfos);
+            const { character } = useCharacterStore();
+            const id = character._id;
+            const updatedCharacter = await updateCharacter(id, generalInfos);
             if (!updatedCharacter) {
                 props.setAlertMessage('Erreur lors de la mise à jour du personnage');
                 props.setAlertSeverity('error');

@@ -4,6 +4,7 @@ import CreateCharacterCard from "../../../components/CreateCharacterCard";
 import SliderComponent from "../../../components/Slider";
 import AlertMessage from "../../../components/alerts/AlertMessage";
 import { updateCharacter } from "../../../api/Characters";
+import useCharacterStore from "../../../store/Character";
 
 export default function Personality (props: {personality: any, setPersonality: React.Dispatch<React.SetStateAction<any>>}) {
     const { personality, setPersonality } = props;
@@ -16,9 +17,10 @@ export default function Personality (props: {personality: any, setPersonality: R
     }
 
     const save = async () => {
-        setPersonality({...personality, principles, renown});        
-        const hrefId = window.location.href.split('/')[4];
-        await updateCharacter(hrefId, { karma: personality.karma, reputation: personality.reputation, principles, renown });
+        setPersonality({...personality, principles, renown});    
+        const { character } = useCharacterStore();    
+        const id = character._id;
+        await updateCharacter(id, { karma: personality.karma, reputation: personality.reputation, principles, renown });
         setShowAlert(true);
     }
 

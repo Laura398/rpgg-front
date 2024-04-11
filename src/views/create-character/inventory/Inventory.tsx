@@ -5,6 +5,7 @@ import CreateCharacterCard from "../../../components/CreateCharacterCard";
 import AlertMessage from "../../../components/alerts/AlertMessage";
 import InventoryList from "./InventoryList";
 import Money from "./Money";
+import useCharacterStore from "../../../store/Character";
 
 const moneyList = [
     { name: "Or", field: "gold" },
@@ -24,8 +25,8 @@ export default function Inventory (props: {character: any, setCharacter: React.D
 
     const save = async () => {
         setCharacter({...character, money, inventory});
-        const hrefId = window.location.href.split('/')[4];
-        await updateCharacter(hrefId, {money, inventory});
+        const id = useCharacterStore().character._id;
+        await updateCharacter(id, {money, inventory});
         setShowAlert(true);
     }
 

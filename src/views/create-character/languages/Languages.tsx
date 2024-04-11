@@ -4,6 +4,7 @@ import { updateCharacter } from "../../../api/Characters";
 import CreateCharacterCard from "../../../components/CreateCharacterCard";
 import AlertMessage from "../../../components/alerts/AlertMessage";
 import Language from "./Language";
+import useCharacterStore from "../../../store/Character";
 
 export default function Languages (props: {languages: any, setLanguages: React.Dispatch<React.SetStateAction<any>>}) {
     const { languages, setLanguages } = props;
@@ -25,8 +26,9 @@ export default function Languages (props: {languages: any, setLanguages: React.D
     const save = async () => {
         const newLanguages = {common, birth, elf, dwarf, ork, antic, daemon, rune};
         setLanguages(newLanguages);
-        const hrefId = window.location.href.split('/')[4];
-        await updateCharacter(hrefId, {languages: newLanguages});
+        const { character } = useCharacterStore();
+        const id = character._id;
+        await updateCharacter(id, {languages: newLanguages});
         setShowAlert(true);
     }
 
