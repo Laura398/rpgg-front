@@ -19,7 +19,7 @@ export default function ShowCharacter () {
     const {character} = useCharacterStore();
     const { user } = useAuthStore();
     
-    const [avatar, setAvatar] = React.useState<string>("/static/images/avatar/1.jpg");
+    const [avatar, setAvatar] = React.useState<string>("/avatar.png");
     const [state, setState] = React.useState(false);
     const [selection, setSelection] = React.useState<{id?: number, label?: string, component?: any, step?: number}>({});
 

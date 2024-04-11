@@ -76,7 +76,7 @@ export default function GeneralInfos(props: { generalInfos: Character , setGener
     const [typesList, setTypesList] = useState([] as string[]);
     const [gender, setGender] = useState<string>(generalInfos.gender || 'Genre');
     const [race, setRace] = useState<string>(generalInfos.race || 'Race');
-    const [avatar, setAvatar] = useState<string>("/static/images/avatar/1.jpg");
+    const [avatar, setAvatar] = useState<string>("/avatar.png");
     const [selectsList, setSelectsList] = useState([] as any[]);
     const sortedAnimals = Array.from(ANIMALS).sort();
 

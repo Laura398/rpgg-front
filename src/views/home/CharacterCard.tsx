@@ -20,7 +20,7 @@ export default function CharacterCard(props: { character: Character }) {
     const navigate = useNavigate();
     const { character } = props;
     const [user, setUser] = useState({} as User);
-    const [avatar, setAvatar] = useState("/static/images/avatar/1.jpg");
+    const [avatar, setAvatar] = useState("/avatar.png");
 
     const { setCharacter } = useCharacterStore();
     
