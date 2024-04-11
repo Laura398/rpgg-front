@@ -12,10 +12,12 @@ import ShowLanguages from './languages/Languages';
 import ShowPersonality from './personality/ShowPersonality';
 import ShowSkills from './skills/ShowSkills';
 import ShowTalentsAndSpe from './statistiques/ShowTalentsAndSpe';
+import useAuthStore from '../../store/Auth';
 
 export default function ShowCharacter () {
     const navigate = useNavigate();
     const {character} = useCharacterStore();
+    const { user } = useAuthStore();
     
     const [avatar, setAvatar] = React.useState<string>("/static/images/avatar/1.jpg");
     const [state, setState] = React.useState(false);
@@ -179,21 +181,24 @@ export default function ShowCharacter () {
                                     }}
                                 >
                                     <CardContent>
-                                    <Box sx={{ display: 'flex', justifyContent: "space-between", gap: 1.5, '& > button': { width: "200px" } }}>
-                                         <Stack>
-                                            <Button variant="outlined" color="neutral" onClick={edit}>
-                                                Modifier
-                                            </Button>
-                                        </Stack>
-                                        <Stack>
-                                            <Button variant="soft" color="neutral" disabled>
-                                                Monter de niveau - fonctionnalité à venir
-                                            </Button>
-                                            <Button variant="soft" color="neutral" sx={{marginTop: "20px"}} disabled>
-                                                Démarrer une partie - fonctionnalité à venir
-                                            </Button>
-                                        </Stack>
-                                    </Box>
+                                    {
+                                        user &&
+                                        <Box sx={{ display: 'flex', justifyContent: "space-between", gap: 1.5, '& > button': { width: "200px" } }}>
+                                            <Stack>
+                                                <Button variant="outlined" color="neutral" onClick={edit}>
+                                                    Modifier
+                                                </Button>
+                                            </Stack>
+                                            <Stack>
+                                                <Button variant="soft" color="neutral" disabled>
+                                                    Monter de niveau - fonctionnalité à venir
+                                                </Button>
+                                                <Button variant="soft" color="neutral" sx={{marginTop: "20px"}} disabled>
+                                                    Démarrer une partie - fonctionnalité à venir
+                                                </Button>
+                                            </Stack>
+                                        </Box>
+                                    }
                                     <AspectRatio
                                         ratio="1"
                                         maxHeight={150}
