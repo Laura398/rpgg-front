@@ -19,7 +19,6 @@ import useCharacterStore from '../../store/Character';
 export default function CharacterCard(props: { character: Character }) {
     const navigate = useNavigate();
     const { character } = props;
-    console.log(character);
     
     const [user, setUser] = useState({} as User);
     const [avatar, setAvatar] = useState("/avatar.png");

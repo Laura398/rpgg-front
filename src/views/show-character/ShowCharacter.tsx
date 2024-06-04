@@ -43,10 +43,8 @@ export default function ShowCharacter() {
     useCharacterStore().character
   );
   const [loading, setLoading] = React.useState(true);
-  console.log(character);
 
   const hrefId = window.location.href.split("/").pop();
-  console.log(hrefId);
 
   React.useMemo(async () => {
     if (hrefId && hrefId !== character._id) {
