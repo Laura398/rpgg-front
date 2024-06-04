@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Button } from '@mui/joy';
 import Box from '@mui/material/Box';
@@ -28,8 +29,8 @@ export default function CreateCharacter() {
     const id = character._id;
     const [edit, setEdit] = React.useState(false);
     const [showAlert, setShowAlert] = React.useState(false);
-    const [alertMessage, setAlertMessage] = React.useState('' as string);
-    const [alertSeverity, setAlertSeverity] = React.useState('' as string);
+    const [alertMessage, setAlertMessage] = React.useState<any>('');
+    const [alertSeverity, setAlertSeverity] = React.useState<any>('');
     const [activeStep, setActiveStep] = React.useState(Number(0));
 
     const [characterData, setCharacterData] = React.useState({} as Character);
