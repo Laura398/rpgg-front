@@ -155,7 +155,15 @@ export default function ShowCharacter() {
   return (
     <main>
       {loading ? (
-        <CircularProgress variant="soft" color="neutral" />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress variant="soft" color="neutral" />
+        </div>
       ) : (
         <React.Fragment>
           <CssBaseline />
