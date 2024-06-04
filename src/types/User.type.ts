@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 const User = z.object({
   _id: z.string(),
@@ -9,6 +9,6 @@ const User = z.object({
 
 export type User = z.infer<typeof User>;
 
-export type UserWithoutPassword = Omit<User, 'password'>;
+export type UserWithoutPassword = Omit<User, "password">;
 
-export type LoginUser = Pick<User, 'email' | 'password'>;
+export type LoginUser = Pick<User, "email" | "password">;

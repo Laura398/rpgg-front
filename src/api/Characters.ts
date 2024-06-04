@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { Character } from '../types/Character.type';
+import axios from "axios";
+import { Character } from "../types/Character.type";
 
 export async function getAllCharacters() {
-  const characters = await axios.get<Character[]>('/characters');
+  const characters = await axios.get<Character[]>("/characters");
   return characters.data;
 }
 
@@ -13,27 +13,38 @@ export async function getCharacterById(id: string) {
 
 export async function createRandomCharacter() {
   try {
-    const character = await axios.get<Character>('/characters/random');
+    const character = await axios.get<Character>("/characters/random");
     return character.data;
-  } catch (e: any) {
-    alert('Vous devez vous reconnecter pour pouvoir créer un personnage.');
+  } catch (e: unknown) {
+    alert("Vous devez vous reconnecter pour pouvoir créer un personnage.");
   }
 }
 
 export async function createCharacter(character: Character) {
   try {
-    const createdCharacter = await axios.post<Character>('/characters', character);  
+    const createdCharacter = await axios.post<Character>(
+      "/characters",
+      character
+    );
     return createdCharacter.data;
-  } catch (e: any) {
-    return alert('Vous devez vous reconnecter pour pouvoir créer un personnage.');
+  } catch (e: unknown) {
+    return alert(
+      "Vous devez vous reconnecter pour pouvoir créer un personnage."
+    );
   }
 }
 
-export async function updateCharacter(_id: string, character: Partial<Character>) {
+export async function updateCharacter(
+  _id: string,
+  character: Partial<Character>
+) {
   try {
-    const updatedCharacter = await axios.patch<Partial<Character>>(`/characters/${_id}`, character);  
+    const updatedCharacter = await axios.patch<Partial<Character>>(
+      `/characters/${_id}`,
+      character
+    );
     return updatedCharacter.data;
-  } catch (e: any) {
-    console.log('e', e);
- }
+  } catch (e: unknown) {
+    console.log("e", e);
+  }
 }

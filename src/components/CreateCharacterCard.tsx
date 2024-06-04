@@ -1,14 +1,29 @@
-import { Box, Button, Card, CardActions, CardOverflow, Divider, Stack, Typography } from "@mui/joy";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardOverflow,
+  Divider,
+  Stack,
+  Typography,
+} from "@mui/joy";
 
-export default function CreateCharacterCard (props: { save: any, title: string, buttonText: string, content: any, randomAll?: () => void}) {
+export default function CreateCharacterCard(props: {
+  save: () => Promise<void>;
+  title: string;
+  buttonText: string;
+  content: string | JSX.Element | JSX.Element[];
+  randomAll?: () => void;
+}) {
   return (
-    <Box sx={{ flex: 1, width: '100%', overflow: 'auto' }}>
+    <Box sx={{ flex: 1, width: "100%", overflow: "auto" }}>
       <Stack
         spacing={4}
         sx={{
-          display: 'flex',
-          maxWidth: { xs: '100vw', md: '80vw' },
-          mx: 'auto',
+          display: "flex",
+          maxWidth: { xs: "100vw", md: "80vw" },
+          mx: "auto",
           px: { xs: 2, md: 6 },
           py: { xs: 2, md: 3 },
         }}
@@ -19,12 +34,18 @@ export default function CreateCharacterCard (props: { save: any, title: string, 
           </Box>
           <Divider />
           {props.content}
-          <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
-            <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-              <Button type="button" size="sm" variant="solid" color="neutral" onClick={(event) => {
-                event.preventDefault();
-                props.save();
-              }}>
+          <CardOverflow sx={{ borderTop: "1px solid", borderColor: "divider" }}>
+            <CardActions sx={{ alignSelf: "flex-end", pt: 2 }}>
+              <Button
+                type="button"
+                size="sm"
+                variant="solid"
+                color="neutral"
+                onClick={(event) => {
+                  event.preventDefault();
+                  props.save();
+                }}
+              >
                 {props.buttonText}
               </Button>
               {props.randomAll && (
@@ -46,5 +67,5 @@ export default function CreateCharacterCard (props: { save: any, title: string, 
         </Card>
       </Stack>
     </Box>
-  )
+  );
 }

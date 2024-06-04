@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 export async function getAllClasses() {
-  const classes = await axios.get<any[]>('/classes');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const classes = await axios.get<any[]>("/classes");
   return classes.data;
 }
