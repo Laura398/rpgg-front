@@ -33,13 +33,13 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 1. Clonez le dépôt :
 
-   ```bash
-   git clone https://github.com/votre-utilisateur/mundi-bellum-frontend.git
-   cd mundi-bellum-frontend
-   ```
+      ```bash
+      git clone https://github.com/votre-utilisateur/mundi-bellum-frontend.git
+      cd mundi-bellum-frontend
+      ```
 
 2. Installez les dépendances :
-  ```bash
-  npm install
-  ```
-3. 
+     ```bash
+     npm install
+     ```
+
