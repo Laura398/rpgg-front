@@ -6,11 +6,8 @@ Bienvenue dans le dépôt du frontend de **Mundi Bellum**, une application perme
 
 - [Introduction](#introduction)
 - [Fonctionnalités](#fonctionnalités)
-- [Prérequis](#prérequis)
-- [Installation](#installation)
+- [Stack](#stack)
 - [Utilisation](#utilisation)
-- [Contribuer](#contribuer)
-- [Licence](#licence)
 
 ## Introduction
 
@@ -22,37 +19,18 @@ Mundi Bellum est une application conçue pour les amateurs de jeux de rôle. Ell
 - **Gestion des personnages** : Création, mise à jour et suppression des personnages de jeu de rôle.
 - **Interface utilisateur intuitive** : Conçue pour être facile à utiliser et agréable à naviguer.
 
-## Prérequis
+## Stack
 
-Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre machine :
+La stack utilisée contient :
 
-- [Node.js](https://nodejs.org/) (version 14 ou supérieure)
+- [Node.js](https://nodejs.org/)
 - [npm](https://www.npmjs.com/)
-
-## Installation
-
-1. Clonez le dépôt :
-
-      ```bash
-      git clone https://github.com/votre-utilisateur/mundi-bellum-frontend.git
-      cd mundi-bellum-frontend
-      ```
-
-2. Installez les dépendances :
-     ```bash
-     npm install
-     ```
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/).
 
 ## Utilisation
 
-Pour démarrer l'application en mode développement :
-      ```bash
-      npm install
-      ```
-
-L'application sera accessible à l'adresse http://localhost:3000.
-
-En ligne, l'application est accessible à l'adresse https://www.mundi-bellum.lauramathieu.com/
+L'application est accessible à l'adresse https://www.mundi-bellum.lauramathieu.com/
 
 Merci de votre intérêt pour Mundi Bellum ! Pour toute question ou suggestion, n'hésitez pas à ouvrir une issue ou à nous contacter directement.
 
