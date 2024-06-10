@@ -1,30 +1,45 @@
-# React + TypeScript + Vite
+# Mundi Bellum Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bienvenue dans le dépôt du frontend de **Mundi Bellum**, une application permettant aux utilisateurs de s'authentifier pour enregistrer et mettre à jour les données de leurs personnages de jeu de rôle.
 
-Currently, two official plugins are available:
+## Table des matières
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Introduction](#introduction)
+- [Fonctionnalités](#fonctionnalités)
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Utilisation](#utilisation)
+- [Contribuer](#contribuer)
+- [Licence](#licence)
 
-## Expanding the ESLint configuration
+## Introduction
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Mundi Bellum est une application conçue pour les amateurs de jeux de rôle. Elle permet aux utilisateurs de gérer leurs personnages en toute simplicité. Ce dépôt contient le code source du frontend de l'application, développé avec [React](https://reactjs.org/) et [TypeScript](https://www.typescriptlang.org/).
 
-- Configure the top-level `parserOptions` property like this:
+## Fonctionnalités
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- **Authentification des utilisateurs** : Inscription, connexion et déconnexion.
+- **Gestion des personnages** : Création, mise à jour et suppression des personnages de jeu de rôle.
+- **Interface utilisateur intuitive** : Conçue pour être facile à utiliser et agréable à naviguer.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Prérequis
+
+Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre machine :
+
+- [Node.js](https://nodejs.org/) (version 14 ou supérieure)
+- [npm](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/)
+
+## Installation
+
+1. Clonez le dépôt :
+
+   ```bash
+   git clone https://github.com/votre-utilisateur/mundi-bellum-frontend.git
+   cd mundi-bellum-frontend
+   ```
+
+2. Installez les dépendances :
+  ```bash
+  npm install
+  ```
+3. 
