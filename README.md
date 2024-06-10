@@ -47,7 +47,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 Pour démarrer l'application en mode développement :
       ```bash
-      npm start
+      npm install
       ```
 
 L'application sera accessible à l'adresse http://localhost:3000.
