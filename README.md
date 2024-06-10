@@ -26,7 +26,7 @@ La stack utilisée contient :
 - [Node.js](https://nodejs.org/)
 - [npm](https://www.npmjs.com/)
 - [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/).
+- [TypeScript](https://www.typescriptlang.org/)
 
 ## Utilisation
 
