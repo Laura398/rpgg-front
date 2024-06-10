@@ -43,3 +43,17 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
      npm install
      ```
 
+## Utilisation
+
+Pour démarrer l'application en mode développement :
+      ```bash
+      npm start
+      ```
+
+L'application sera accessible à l'adresse http://localhost:3000.
+
+En ligne, l'application est accessible à l'adresse https://www.mundi-bellum.lauramathieu.com/
+
+Merci de votre intérêt pour Mundi Bellum ! Pour toute question ou suggestion, n'hésitez pas à ouvrir une issue ou à nous contacter directement.
+
+Bon jeu et bonne gestion de vos personnages ! 🎲✨
