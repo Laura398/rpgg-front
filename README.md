@@ -27,7 +27,7 @@ Mundi Bellum est une application conçue pour les amateurs de jeux de rôle. Ell
 Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre machine :
 
 - [Node.js](https://nodejs.org/) (version 14 ou supérieure)
-- [npm](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/)
+- [npm](https://www.npmjs.com/)
 
 ## Installation
 
